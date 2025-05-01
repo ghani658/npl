@@ -1,0 +1,570 @@
+/**
+ * Theme Name:     Hello Elementor Child
+ * Author:         Elementor Team
+ * Template:       hello-elementor
+ * Text Domain:	   hello-elementor-child
+ * Description:    Hello Elementor is a lightweight and minimalist WordPress theme that was built specifically to work seamlessly with the Elementor site builder plugin. The theme is free, open-source, and designed for users who want a flexible, easy-to-use, and customizable website. The theme, which is optimized for performance, provides a solid foundation for users to build their own unique designs using the Elementor drag-and-drop site builder. Its simplicity and flexibility make it a great choice for both beginners and experienced Web Creators.
+ */
+
+/* media query for 1440 max screen */
+@media (min-width: 1440px) {
+
+	.home .recent-annoucement .elementor-post__meta-data {
+	   margin-bottom: 15px;
+	   font-size: 18px;
+	   font-weight: bold;
+	   line-height: 24px;
+	   text-transform: uppercase;
+	   color: #000;
+	   position: absolute;
+	   top: 360px;
+	}
+   .home #home-shop-section .woocommerce-loop-product__buttons {
+	   visibility: hidden;
+   }
+   .home #home-shop-section span.price {
+	   position: absolute;
+	   top: 260px;
+	   width: 100%;
+	   font-size: 16px;
+	   text-align: end;
+   }
+   .home #home-shop-section.elementor-wc-products ul.products li.product .woocommerce-loop-product__title {
+	   margin-top: 40px;
+   }
+   .home .featured-content {
+	   background-color: #fff !important;
+	   padding: 0;
+   }
+   .home .eael-post-list-post {
+	   box-shadow: -2px 1px 6px 2px #ffffff !important;
+	   -webkit-box-shadow: -2px 1px 6px 2px rgb(248, 249, 251) !important;
+   }
+   .home .eael-post-list-thumbnail img {
+	   height: 12vh;
+	   max-width: 100%;
+   }
+    
+   
+
+   
+}
+
+
+@media (min-width: 1024px and max-width: 1400px) {
+   
+}
+
+@media (max-width: 768px) {
+   .home .featured-content {
+	   background-color: #fff !important;
+	   padding: 0 !important;
+   }
+   .home .eael-post-list-post {
+	   box-shadow: -2px 1px 6px 2px #ffffff !important;
+	   -webkit-box-shadow: -2px 1px 6px 2px rgb(248, 249, 251) !important;
+   }
+   .home .eael-post-list-thumbnail img {
+	   height: 12vh;
+	   max-width: 100%;
+   }
+}
+
+
+
+
+
+
+
+.leaderboard-sidebar {
+   box-shadow: none !important;
+}
+.leaderboard-nav{
+   padding-bottom: 0 !important;
+   border-bottom: 2px solid #999999 !important;
+}
+
+.team_leaderboard_container{
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   padding: 11px 0;
+}
+
+
+.team_leaderboard_list{
+   display: flex;
+   gap: 15px;
+   align-items: flex-start;
+   
+}
+.teamleader_text h3{ 
+   margin: 5px  0 0;
+   font-size: 18px;
+   font-weight: bold;
+   color: #000;
+}
+.teamleader_text ul{
+   margin: 0;
+   padding: 0;
+   display: flex;
+   gap: 10px;
+
+}
+.teamleader_text li{
+   list-style: none;
+   font-size: 13px;
+   margin: 3px 0 0;
+   color: #000;
+}
+.teamleader_text li b{
+   padding-right: 0px;
+   font-weight: 500;
+   color: #999;
+
+}
+.rank_position{
+   font-size: 19px;
+   font-weight: 600;
+   color: #666666;
+}
+
+
+
+.leaderboard-btn {
+   border: 2px solid #999 !important;
+   font-weight: 700 !important;
+   border-radius: 30px !important;
+   font-size: 13px !important;
+   margin-bottom: 0 !important;
+}
+.leaderboard-live-btn {
+   background: white !important;
+   color: #28a745 !important;
+   border-radius: 30px !important;
+   border: 1px solid #28a745;
+   font-size: 16px !important;
+   font-weight: 700 !important;
+   border: 1px solid #28a745 !important;
+}
+
+.leaderboard-sponsor{
+   display: flex;
+   justify-content: space-around;
+   align-items: center;
+   border-bottom: 3px solid #999;
+   padding-bottom: 11px;
+}
+.leaderboard-sponsor p{
+   font-size: 13px !important;
+   font-weight: 700;
+   color: #000 !important;
+}
+.leaderboard-sponsor img{
+   max-width: 60px !important;
+   width: 100% !important;
+   object-fit: cover;
+}
+.league-season-header .sponsor-name{
+   font-size: 26px;
+   line-height: 24px;
+   letter-spacing: -5%;
+   font-weight: 600;
+   margin-right: 3px;
+}
+.league-season-header .league-name{
+   font-size: 26px;
+   line-height: 24px;
+   letter-spacing: -5%;
+   font-weight: 600;
+   margin-right: 3px;
+}
+.league-season-header .season-name{
+   font-size: 26px;
+   line-height: 24px;
+   letter-spacing: -5%;
+   font-weight: 600;
+}
+.rank_labels_desktop{
+   display: block;
+}
+.rank_labels_mobile{
+   display: none;
+}
+
+@media (max-width: 768px){
+   .leaderboard-nav{
+	   justify-content: left !important;
+   }
+   .teamleader_text {
+	   display: flex;
+	   align-items: center;
+	   gap: 10px;
+	   width: auto;
+	   max-width: 100%;
+   }
+   .team_leaderboard_container{
+	   flex-direction: row-reverse;
+	   gap: 10px;
+	   align-items: center;
+	   justify-content: flex-end;
+	   gap: 10px;
+   }
+   .team_leaderboard_container_main {
+	   overflow-x: hidden;
+   }
+   .team_leaderboard_container_main_inner{
+/* 		width: 5000px; */
+	   max-width: 100%;
+	   overflow-x: scroll;
+	   display: flex;
+	   align-items: center;
+	   justify-content: flex-start;
+	   gap: 10px;
+   }
+   .teamleader_img {
+	   max-width: 24px;
+	   width: 24px;
+	   display: flex;
+	   align-items: center;
+	   justify-content: center;
+   }
+   .team_leaderboard_list{
+	   align-items: center;
+	   gap: 7px;
+   }
+   .teamleader_text h3, .rank_position{
+	   font-size: 13px;
+	   margin: 0;
+   }
+   .teamleader_text h3{
+	   width: 170px;
+   }
+   .teamleader_text ul{
+	   width: 115px;
+   }
+   .rank_labels_desktop, .leaderboard-btn, .leaderboard-sponsor, .leaderboard-live-btn{
+	   display: none;
+   }
+   .rank_labels_mobile{
+	   display: block;
+   }
+   .home_sec1 .e-con-inner .elementor-element:nth-child(1){
+/* 	   order: 1; */
+   }
+   .league-season-header .league-name, .league-season-header .season-name, .league-season-header .sponsor-name{
+	   font-size: 18px;
+	   position: relative;
+	   bottom: -10px;
+	   left: 20px;
+   }
+}
+
+
+/* ahmed css start*/
+.show_venue_shortcode span{
+   display: flex;
+   justify-content: center; 
+   align-items: center; 
+   font-family: 'Suisse Intl';
+   font-weight: 500;
+   font-size: 18px;
+   line-height: 100%;
+   letter-spacing: -3%;
+   text-align: center;
+   text-transform: capitalize;
+   color: #FFFFFF;
+
+} 	
+/* ahmed css end*/
+
+.events-filter {
+   margin-bottom: 2rem;
+   text-align: right;
+   display: flex;
+   justify-content: flex-end;
+   gap: 1rem;
+}
+
+.filter-link {
+   padding: 0.5rem 1.5rem;
+   border-radius: 8px;
+   border: 2px solid #1D7A5C;
+   color: #1D7A5C;
+   text-decoration: none;
+   font-weight: 500;
+   transition: all 0.3s ease;
+}
+
+.filter-link:hover,
+.filter-link.active {
+   background-color: #1D7A5C;
+   color: white;
+}
+
+.events-list {
+   display: grid;
+   grid-template-columns: repeat(3, 1fr);
+   gap: 24px;
+}
+
+.past-event {
+   display: none;
+}
+
+.events-list.show-past .past-event {
+   display: flex;
+}
+
+.events-list.show-past .upcoming-event {
+   display: none;
+}
+
+.event-link {
+   text-decoration: none;
+   color: inherit;
+   display: block;
+}
+
+.single-event {
+   position: relative;
+   border-radius: 12px;
+   background-color: #1D7A5CD4;
+   background-position: center center;
+   background-repeat: no-repeat;
+   background-size: cover;
+   transition: transform 0.3s ease;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: flex-end;
+   border-radius: 12px;
+   height: 510px;
+   padding: 1.25rem;
+   gap: 3.875rem;
+}
+
+.event-badge {
+   position: absolute;
+   top: 1.25rem;
+   right: 1.25rem;
+   height: auto;
+   background-color: #1D7A5C;
+   padding: 3px 8px 3px 8px;
+   border-radius: 5px 5px 5px 5px;
+   color: #fff;
+   font-size: 1.125rem;
+   font-weight: 600;
+}
+
+body .single-event img.event-logo {
+   width: 144px;
+   height: 144px;
+   border-radius: 100%;
+   object-fit: cover;
+}
+
+body .single-event h2 {
+   color: #fff;
+   font-size: 1.875rem;
+   font-weight: 600;
+   text-align: center;
+}
+
+.event-venue {
+   font-size: 1.125rem;
+   color: #fff;
+   text-align: center;
+   text-transform: uppercase;
+   font-weight: 500;
+}
+
+.event-link {
+   display: flex;
+   flex-direction: column;
+   gap: 20px;
+}
+
+.event-date-wrapper {
+   display: flex;
+   flex-direction: column;
+}
+
+.event-date {
+   font-size: 1.563rem;
+   font-weight: 700;
+   color: #000000;
+}
+
+.event-format {
+   font-size: 1.125rem;
+   color: #B7B7B7;
+   font-weight: 600;
+   text-transform: uppercase;
+}
+
+.matches-container {
+   width: 100%;
+}
+
+/* Slider Styles */
+.events-slider {
+   margin: 0 -15px;
+}
+
+.events-slider .event-link {
+   padding: 0 15px;
+}
+
+.events-slider .event-link.filtered-out {
+   display: none !important;
+}
+
+.no-events {
+   text-align: center;
+   font-size: 1.25rem;
+   color: #666;
+   font-weight: 500;
+   margin: 0;
+}
+
+
+
+.event-filter-wrapper {
+   display: flex;
+   gap: 14px;
+   margin-bottom: 40px;
+}
+
+.event-filter-wrapper select {
+   width: 286px;
+   height: 54px;
+   padding: 10px 20px;
+   border-radius: 100px;
+   border: 1px solid #EEEEEE;
+   color: #999999;
+   font-size: 1rem;
+   font-weight: 600;
+   appearance: none;
+   background: url(/wp-content/uploads/2025/04/angle-down.svg) no-repeat right 20px top 15px;
+}
+
+.matches-container .slick-track {
+   margin: 0;
+}
+
+/* Hide slider content until initialized */
+.events-slider:not(.slick-initialized) {
+   visibility: hidden;
+   opacity: 0;
+   height: 0;
+}
+
+.events-slider.slick-initialized {
+   visibility: visible;
+   opacity: 1;
+   height: auto;
+   transition: opacity 0.3s ease;
+}
+
+.current-month-events {
+   display: flex;
+   flex-direction: column;
+   gap: 2.5rem;
+}
+
+.event-month {
+   display: flex;
+   justify-content: space-between;
+   padding-bottom: 20px;
+   border-bottom: 3px solid #000;
+}
+
+.event-month span {
+   font-size: 1.813rem;
+   font-weight: 600;
+}
+
+.event-month span.year {
+   font-size: 1.25rem;
+   font-weight: 500;
+}
+ 
+.month-events-list {
+   display: flex;
+   flex-direction: column;
+}
+
+.month-event-item {
+   display: flex;
+   gap: 1.25rem;
+   padding-bottom: 20px;
+   margin-bottom: 24px;
+   border-bottom: 1px solid #B7B7B7;
+   align-items: flex-start;
+}
+
+.month-event-item:last-child {
+   border-bottom: none;
+   margin-bottom: 0;
+}
+
+.month-event-details {
+   flex: 1;
+   display: flex;
+   gap: 10px;
+   padding-right: 1.25rem;
+   border-right: 1px solid #B7B7B7;
+}
+
+.month-event-details img.event-logo {
+   width: 92px;
+   height: 92px;
+   object-fit: cover;
+   border-radius: 100%;
+}
+
+.event-info {
+   display: flex;
+   flex-direction: column;
+   flex: 1;
+}
+
+.event-info span {
+   color: #666666;
+   font-size: 15px;
+}
+
+.event-info span.event-title {
+   font-size: 1.575rem;
+   font-weight: 600;
+   color: #000000;
+   line-height: 30px;
+}
+
+.event-info span.month-event-venue {
+   font-weight: 500;
+   text-transform: uppercase;
+}
+
+.month-event-dates {
+   flex: 1;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   gap: 10px;
+}
+
+.dates-info {
+   display: flex;
+   flex-direction: column;
+}
+
+@media (max-width: 600px){
+   .event-filter-wrapper {
+      flex-direction: column;
+   }
+   .event-filter-wrapper select {
+      width: 100%;
+   }
+}
