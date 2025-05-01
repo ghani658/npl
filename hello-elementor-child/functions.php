@@ -770,7 +770,7 @@ add_shortcode('monthly_events', 'display_matches_monthly');
 
 // Haris Functions
 
-// team page
+
 function func_teams($atts)
 {
     ob_start();
@@ -857,7 +857,7 @@ function func_teams($atts)
 
 
     wp_reset_postdata(); // Reset query after collecting states
-    ?>
+?>
 
     <div class="team_main_containers">
         <div class="team_main_head">
@@ -978,7 +978,7 @@ function func_teams($atts)
             ?>
         </div>
     </div>
-    <?php
+<?php
     return ob_get_clean();
 }
 add_shortcode('team_list', 'func_teams');
@@ -986,7 +986,7 @@ add_shortcode('team_list', 'func_teams');
 add_action('wp_ajax_filter_events', 'filter_events_handler');
 add_action('wp_ajax_nopriv_filter_events', 'filter_events_handler');
 
-// team page filters on select option value
+
 function func_league_tabs_result($atts)
 {
     ob_start();
@@ -997,7 +997,7 @@ function func_league_tabs_result($atts)
     $venues = get_terms(['taxonomy' => 'sp_venue', 'orderby' => 'name', 'hide_empty' => false]);
     $event_args = new WP_Query(array('post_type' => 'sp_event', 'posts_per_page' => -1));
 
-    ?>
+?>
     <form id="eventFilterForm" class="player_info_venue">
         <div class="form-group_main">
             <div class="form-group">
@@ -1509,6 +1509,8 @@ function filter_league_tabs()
 }
 add_action('wp_ajax_filter_league_tabs', 'filter_league_tabs');
 add_action('wp_ajax_nopriv_filter_league_tabs', 'filter_league_tabs');
+
+
 
 
 function func_league_tabs_schedule($atts)
@@ -2057,7 +2059,7 @@ function filter_league_tabs_schedule()
 add_action('wp_ajax_filter_league_tabs_schedule', 'filter_league_tabs_schedule');
 add_action('wp_ajax_nopriv_filter_league_tabs_schedule', 'filter_league_tabs_schedule');
 
-// post blog data
+
 function func_post_data()
 {
     ob_start();
@@ -2108,7 +2110,7 @@ function func_post_data()
 }
 add_shortcode('post_replays', 'func_post_data');
 
-// league teams
+
 function func_league_teams()
 {
     ob_start();
@@ -2230,7 +2232,7 @@ function func_league_teams()
 }
 add_shortcode('league_teams', 'func_league_teams');
 
-// league price pool
+
 function func_league_price_pool($atts)
 {
     ob_start();
@@ -2317,7 +2319,7 @@ function func_league_price_pool($atts)
 }
 add_shortcode('league_price_pool', 'func_league_price_pool');
 
-// list of all players stats
+
 function func_player_list_stat()
 {
     ob_start();
@@ -2389,7 +2391,7 @@ function func_player_list_stat()
 }
 add_shortcode('player_list_stat', 'func_player_list_stat');
 
-// League Faqs
+
 function func_league_faqs($atts)
 {
     ob_start();
@@ -2457,11 +2459,11 @@ function func_league_faqs($atts)
 }
 add_shortcode('league_faqs', 'func_league_faqs');
 
-// league overview
+
 function func_league_overview()
 {
     ob_start();
-    ?>
+?>
     <div class="main_league_overview">
         <div class="league_overview_sec">
             <!-- <h2>Overview</h2> -->
@@ -2552,7 +2554,7 @@ function func_league_overview()
 }
 add_shortcode('league_overview', 'func_league_overview');
 
-// League CPT
+
 function create_league_cpt()
 {
     // Labels for Custom Post Type
@@ -2644,7 +2646,7 @@ function create_league_cpt()
 }
 add_action('init', 'create_league_cpt', 0);
 
-// Pre League CPT
+
 function register_pre_league_cpt_and_taxonomy()
 {
     // Register Pre League Custom Post Type
@@ -2831,7 +2833,9 @@ function register_mid_league_cpt_and_taxonomy()
 }
 add_action('init', 'register_mid_league_cpt_and_taxonomy');
 
-// Faq CPT
+
+
+
 function create_faq_cpt()
 {
 
@@ -2889,11 +2893,11 @@ function create_faq_cpt()
 }
 add_action('init', 'create_faq_cpt', 0);
 
-// Pre League news data
+
 function func_pre_league_post_data()
 {
     ob_start();
-    ?>
+?>
     <?php
     // Query posts from category with ID 9
     $args = array(
@@ -2974,7 +2978,10 @@ function func_pre_league_post_data()
 add_shortcode('post_news', 'func_pre_league_post_data');
 
 
-// League Header info
+
+
+
+
 function func_league_tournament_head($atts)
 {
     ob_start();
@@ -3049,7 +3056,10 @@ function func_league_tournament_head($atts)
 }
 add_shortcode('league_head', 'func_league_tournament_head');
 
-// League tabs data
+
+
+
+
 function func_league_tabs_page()
 {
     ob_start();
@@ -3129,7 +3139,6 @@ function func_league_tabs_page()
 }
 add_shortcode('league_tabs_page', 'func_league_tabs_page');
 
-// League pre league Tabs
 function func_pre_league_tabs_page()
 {
     ob_start();
@@ -3214,7 +3223,8 @@ function func_pre_league_tabs_page()
 }
 add_shortcode('pre_league_tabs_page', 'func_pre_league_tabs_page');
 
-// League Post tabs data
+
+
 function func_post_league_tabs_page()
 {
     ob_start();
@@ -3299,7 +3309,6 @@ function func_post_league_tabs_page()
 }
 add_shortcode('post_league_tabs_page', 'func_post_league_tabs_page');
 
-// Mid League post data
 function func_mid_league_tabs_page()
 {
     ob_start();
@@ -3403,25 +3412,56 @@ function func_pre_league_schedule($atts)
 {
     ob_start();
 
-    $tournament_query = new WP_Query(array('post_type' => 'sp_tournament', 'posts_per_page' => -1));
-    $team_query = new WP_Query(array('post_type' => 'sp_team', 'posts_per_page' => -1));
-    $venues = get_terms(['taxonomy' => 'sp_venue', 'orderby' => 'name', 'hide_empty' => false]);
-    $league = get_terms(['taxonomy' => 'sp_league', 'orderby' => 'name', 'hide_empty' => false]);
-    $event_args = new WP_Query(array('post_type' => 'sp_event', 'posts_per_page' => -1));
+    // Enqueue necessary scripts
+    wp_enqueue_script('jquery');
 
-    $atts = shortcode_atts(array(
-        'league' => '',
-    ), $atts, 'team_list');
-
-    $league_slug = sanitize_title($atts['league']);
-
+    // Localize script for AJAX
+    wp_localize_script('jquery', 'schedule_ajax', array(
+        'ajax_url' => admin_url('admin-ajax.php'),
+        'nonce' => wp_create_nonce('schedule_nonce')
+    ));
     ?>
+    <script>
+        jQuery(document).ready(function($) {
+            // Function to handle AJAX filtering
+            function filterMatches() {
+                var formData = $('#eventFilterForm').serialize();
+
+//                 $.ajax({
+//                     url: schedule_ajax.ajax_url,
+//                     type: 'POST',
+//                     data: {
+//                         action: 'pre_filter_schedule_matches',
+//                         form_data: formData,
+//                         security: schedule_ajax.nonce
+//                     },
+//                     beforeSend: function() {
+//                         $('#team-players-table').html('<div class="loading">Loading...</div>');
+//                     },
+//                     success: function(response) {
+//                         $('#team-players-table').html(response);
+//                     },
+//                     error: function(xhr, status, error) {
+//                         console.error(error);
+//                         $('#team-players-table').html('<div class="error">Error loading matches</div>');
+//                     }
+//                 });
+            }
+
+            // Bind change events to all select elements
+            $('#round-select, #match_type_select, #state-select, #venue-select').change(function() {
+                filterMatches();
+            });
+        });
+    </script>
+
     <form id="eventFilterForm" class="player_info_venue">
         <div class="form-group_main">
             <div class="form-group">
-                <select id="round-select" name="round[]">
+                <select id="round-select" name="round">
                     <option value="">Select Round</option>
                     <?php
+                    $tournament_query = new WP_Query(array('post_type' => 'sp_tournament', 'posts_per_page' => -1));
                     $unique_rounds = [];
                     if ($tournament_query->have_posts()) {
                         while ($tournament_query->have_posts()) {
@@ -3436,15 +3476,17 @@ function func_pre_league_schedule($atts)
                         foreach ($unique_rounds as $index => $round) {
                             echo '<option value="' . esc_html($round_id) . '">' . esc_html($round) . '</option>';
                         }
+                        wp_reset_postdata();
                     }
                     ?>
                 </select>
             </div>
 
             <div class="form-group">
-                <select id="match_type_select" name="match_type[]">
+                <select id="match_type_select" name="match_type">
                     <option value="">Select Match Type</option>
                     <?php
+                    $tournament_query = new WP_Query(array('post_type' => 'sp_tournament', 'posts_per_page' => -1));
                     if ($tournament_query->have_posts()) {
                         $unique_match_types = [];
                         while ($tournament_query->have_posts()) {
@@ -3456,18 +3498,17 @@ function func_pre_league_schedule($atts)
                                 echo '<option value="' . esc_html($tournament_id) . '">' . esc_html($match_type) . '</option>';
                             }
                         }
-                        wp_reset_postdata(); // Reset after loop
-                    } else {
-                        echo '<option>No events found</option>';
+                        wp_reset_postdata();
                     }
                     ?>
                 </select>
             </div>
 
             <div class="form-group">
-                <select id="state-select" name="state[]">
+                <select id="state-select" name="state">
                     <option value="">Select State</option>
                     <?php
+                    $team_query = new WP_Query(array('post_type' => 'sp_team', 'posts_per_page' => -1));
                     $unique_states = [];
                     if ($team_query->have_posts()) {
                         while ($team_query->have_posts()) {
@@ -3479,15 +3520,17 @@ function func_pre_league_schedule($atts)
                                 echo '<option value="' . $state_id . '">' . esc_html($state) . '</option>';
                             }
                         }
+                        wp_reset_postdata();
                     }
                     ?>
                 </select>
             </div>
 
             <div class="form-group">
-                <select id="venue-select" name="venue[]">
+                <select id="venue-select" name="venue">
                     <option value="">Select Venue</option>
                     <?php
+                    $venues = get_terms(['taxonomy' => 'sp_venue', 'orderby' => 'name', 'hide_empty' => false]);
                     foreach ($venues as $venue) {
                         echo '<option value="' . esc_attr($venue->term_id) . '">' . esc_html($venue->name) . '</option>';
                     }
@@ -3497,259 +3540,8 @@ function func_pre_league_schedule($atts)
         </div>
     </form>
 
-
-    <?php
-    $args_tourna = new WP_Query(array(
-        'post_type' => 'sp_tournament',
-        'posts_per_page' => -1,
-        'tax_query' => array(
-            'relation' => 'AND',
-            array(
-                'taxonomy' => 'sp_league',
-                'field'    => 'slug',
-                'terms'    => $league_slug,
-            ),
-
-        ),
-    ));
-
-    if ($args_tourna->have_posts()) {
-        while ($args_tourna->have_posts()) {
-            $args_tourna->the_post();
-            $round_id = get_the_ID();
-            $event_metas = get_post_meta(get_the_ID());
-
-            echo "<pre>";
-            print_r($event_metas);
-            echo "</pre>";
-        }
-    }
-
-    ?>
-
     <div id="team-players-table">
-        <div class="">
-            <div class="round_1">
-                <div class="round_1_accordian">
-                    <div class="round_main_cont">
-                        <div class="round_1_img">
-                            <img src="http://localhost/npl/wp-content/uploads/2025/04/Frame-1000004890-1.png" alt="" />
-                        </div>
-                        <div class="round_1_content">
-                            <h4>Jan 21- 24</h4>
-                            <h2>Round 1</h2>
-                            <h5>SEAFORTH, PANANA</h5>
-                        </div>
-                    </div>
-
-                    <div class="chevron">
-                        <span class="chevron-icon"><i class="fa-solid fa-chevron-down"></i></span></span>
-                    </div>
-                </div>
-
-                <div class="round_inner" style="display: none;">
-                    <div class="round_inner_time">
-                        <h3>9:30 AM</h3>
-                    </div>
-                    <div class="">
-                        <table class="team-players-table" width="100%" cellspacing="0" cellpadding="0">
-                            <thead>
-                                <tr>
-                                    <th>Match</th>
-                                    <th>Home Team</th>
-                                    <th></th>
-                                    <th>Road Team</th>
-                                    <th>Venue</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Match 1</td>
-                                    <td><img src="" alt="Home Team Logo" /> Catepillar</td>
-                                    <td>0 Vs 0</td>
-                                    <td><img src="" alt="Road Team Logo" /> Turtles</td>
-                                    <td>The Jar - South Melbourne</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="5">
-                                        <span class="span1">Complete</span> | <span>Gallery</span>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div class="round_inner_time">
-                        <h3>11:30 AM</h3>
-                    </div>
-                    <div class="">
-                        <table class="team-players-table" width="100%" cellspacing="0" cellpadding="0">
-                            <thead>
-                                <tr>
-                                    <th>Match</th>
-                                    <th>Home Team</th>
-                                    <th></th>
-                                    <th>Road Team</th>
-                                    <th>Venue</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Match 1</td>
-                                    <td><img src="" alt="Home Team Logo" /> Catepillar</td>
-                                    <td>0 Vs 0</td>
-                                    <td><img src="" alt="Road Team Logo" /> Turtles</td>
-                                    <td>The Jar - South Melbourne</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="5">
-                                        <span class="span1">Complete</span> | <span>Gallery</span>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-            <div class="round_1">
-                <div class="round_1_accordian">
-                    <div class="round_main_cont">
-                        <div class="round_1_img">
-                            <img src="http://localhost/npl/wp-content/uploads/2025/04/Frame-1000004890-1.png" alt="" />
-                        </div>
-                        <div class="round_1_content">
-                            <h4>Jan 21- 24</h4>
-                            <h2>Round 1</h2>
-                            <h5>SEAFORTH, PANANA</h5>
-                        </div>
-                    </div>
-
-                    <div class="chevron">
-                        <span class="chevron-icon"><i class="fa-solid fa-chevron-down"></i></span></span>
-                    </div>
-                </div>
-
-                <div class="round_inner" style="display: none;">
-                    <div class="round_inner_time">
-                        <h3>9:30 AM</h3>
-                    </div>
-                    <div class="">
-                        <table class="team-players-table" width="100%" cellspacing="0" cellpadding="0">
-                            <thead>
-                                <tr>
-                                    <th>Match</th>
-                                    <th>Home Team</th>
-                                    <th></th>
-                                    <th>Road Team</th>
-                                    <th>Venue</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Match 1</td>
-                                    <td><img src="" alt="Home Team Logo" /> Catepillar</td>
-                                    <td>0 Vs 0</td>
-                                    <td><img src="" alt="Road Team Logo" /> Turtles</td>
-                                    <td>The Jar - South Melbourne</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="5">
-                                        <span class="span1">Complete</span> | <span>Gallery</span>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div class="round_inner_time">
-                        <h3>11:30 AM</h3>
-                    </div>
-                    <div class="">
-                        <table class="team-players-table" width="100%" cellspacing="0" cellpadding="0">
-                            <thead>
-                                <tr>
-                                    <th>Match</th>
-                                    <th>Home Team</th>
-                                    <th></th>
-                                    <th>Road Team</th>
-                                    <th>Venue</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Match 1</td>
-                                    <td><img src="" alt="Home Team Logo" /> Catepillar</td>
-                                    <td>0 Vs 0</td>
-                                    <td><img src="" alt="Road Team Logo" /> Turtles</td>
-                                    <td>The Jar - South Melbourne</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="5">
-                                        <span class="span1">Complete</span> | <span>Gallery</span>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-
-            </div>
-
-            <div class="round_1">
-                <div class="round_1_accordian">
-                    <div class="round_main_cont">
-                        <div class="round_1_img">
-                            <img src="http://localhost/npl/wp-content/uploads/2025/04/Frame-1000004890-1.png" alt="" />
-                        </div>
-                        <div class="round_1_content">
-                            <h4>Jan 21- 24</h4>
-                            <h2>Round 1</h2>
-                            <h5>SEAFORTH, PANANA</h5>
-                        </div>
-                    </div>
-
-                    <div class="chevron">
-                        <span class="chevron-icon"><i class="fa-solid fa-chevron-down"></i></span></span>
-                    </div>
-                </div>
-
-                <div class="round_inner" style="display: none;">
-                    <div class="round_inner_time">
-                        <h3>9:30 AM</h3>
-                    </div>
-                    <div class="">
-                        <table class="team-players-table" width="100%" cellspacing="0" cellpadding="0">
-                            <thead>
-                                <tr>
-                                    <th>Match</th>
-                                    <th>Home Team</th>
-                                    <th></th>
-                                    <th>Road Team</th>
-                                    <th>Venue</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Match 1</td>
-                                    <td><img src="" alt="Home Team Logo" /> Catepillar</td>
-                                    <td>0 Vs 0</td>
-                                    <td><img src="" alt="Road Team Logo" /> Turtles</td>
-                                    <td>The Jar - South Melbourne</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="5">
-                                        <span class="span1">Complete</span> | <span>Gallery</span>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-        </div>
+        <?php echo get_pre_schedule_matches(); ?>
     </div>
 
     <?php
@@ -3757,7 +3549,198 @@ function func_pre_league_schedule($atts)
 }
 add_shortcode('pre_league_schedule', 'func_pre_league_schedule');
 
-// Pre league Locations tab
+function get_pre_schedule_matches($filters = array())
+{
+    ob_start();
+
+    $current_datetime = new DateTime('now');
+    $post_id = get_the_ID();
+
+    $args = array(
+        'post_type' => 'sp_tournament',
+        'posts_per_page' => -1,
+        'tax_query' => array(
+            array(
+                'taxonomy' => 'sp_league',
+                'field'    => 'slug',
+                'terms'    => 'npl',
+            )
+        ),
+    );
+
+    if (!empty($filters['round'])) {
+        $args['post__in'] = array($filters['round']);
+    }
+
+    $args_tourna = new WP_Query($args);
+
+    if ($args_tourna->have_posts()) {
+        while ($args_tourna->have_posts()) {
+            $args_tourna->the_post();
+
+            $event_metas = get_post_meta(get_the_ID());
+
+            if (!isset($event_metas['sp_events'][0]) || empty($event_metas['sp_events'][0])) {
+                continue;
+            }
+
+            $matches = maybe_unserialize($event_metas['sp_events'][0]);
+            $venue_terms = wp_get_post_terms($post_id, 'sp_venue', ['fields' => 'names']);
+
+            $matches_by_date = [];
+            foreach ($matches as $match) {
+                if (!isset($match['date'], $match['hh'], $match['mm'], $match['teams'][0], $match['teams'][1])) {
+                    continue;
+                }
+
+                $match_datetime = DateTime::createFromFormat(
+                    'Y-m-d H:i',
+                    $match['date'] . ' ' . $match['hh'] . ':' . $match['mm']
+                );
+
+                // Skip if match is in the past
+                if ($match_datetime < $current_datetime) {
+                    continue;
+                }
+
+                if (!empty($filters['state'])) {
+                    $team_ids = $match['teams'] ?? array();
+                    if (!in_array($filters['state'], $team_ids)) {
+                        continue;
+                    }
+                }
+
+                if (!empty($filters['venue'])) {
+                    $venue_id = $event_metas['venue'][0] ?? '';
+                    if ($venue_id != $filters['venue']) {
+                        continue;
+                    }
+                }
+
+                $date = $match['date'];
+                $time = $match['hh'] . ':' . $match['mm'];
+
+                if (!isset($matches_by_date[$date])) {
+                    $matches_by_date[$date] = [];
+                }
+
+                if (!isset($matches_by_date[$date][$time])) {
+                    $matches_by_date[$date][$time] = [];
+                }
+
+                $matches_by_date[$date][$time][] = $match;
+            }
+
+            ksort($matches_by_date);
+
+            if (empty($matches_by_date)) {
+                continue;
+            }
+    ?>
+            <div class="">
+                <div class="round_1">
+                    <div class="round_1_accordian">
+                        <div class="round_main_cont">
+                            <div class="round_1_img">
+                                <img src="http://localhost/npl/wp-content/uploads/2025/04/Frame-1000004890-1.png" alt="" />
+                            </div>
+                            <div class="round_1_content">
+                                <h4><?php echo esc_html($event_metas['start_date'][0] ?? ''); ?></h4>
+                                <h2><?php the_title(); ?></h2>
+                                <h5><?php echo esc_html($event_metas['venue'][0] ?? ''); ?></h5>
+                            </div>
+                        </div>
+
+                        <div class="chevron">
+                            <span class="chevron-icon"><i class="fa-solid fa-chevron-down"></i></span>
+                        </div>
+                    </div>
+
+                    <div class="round_inner" style="display: none;">
+                        <?php foreach ($matches_by_date as $date => $times): ?>
+                            <div class="date-container">
+                                <h2 class="match-date"><?php echo date('F j, Y', strtotime($date)); ?></h2>
+
+                                <?php foreach ($times as $time => $time_matches): ?>
+                                    <div class="time-slot-container">
+                                        <h3 class="match-time"><?php echo esc_html($time); ?></h3>
+
+                                        <table class="team-players-table" width="100%" cellspacing="0" cellpadding="0">
+                                            <thead>
+                                                <tr>
+                                                    <th>Match</th>
+                                                    <th>Home Team</th>
+                                                    <th></th>
+                                                    <th>Road Team</th>
+                                                    <th>Venue</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php foreach ($time_matches as $index => $match):
+                                                    $home_team_id = $match['teams'][0];
+                                                    $road_team_id = $match['teams'][1];
+                                                    $home_team_name = get_the_title($home_team_id);
+                                                    $road_team_name = get_the_title($road_team_id);
+                                                    $home_team_logo = get_the_post_thumbnail_url($home_team_id, 'thumbnail');
+                                                    $road_team_logo = get_the_post_thumbnail_url($road_team_id, 'thumbnail');
+                                                    $home_team_score = $match['results'][0] ?? 0;
+                                                    $road_team_score = $match['results'][1] ?? 0;
+                                                    $venue = $event_metas['venue'][0] ?? 'Unknown Venue';
+                                                ?>
+                                                    <tr>
+                                                        <td><?php echo 'Match ' . ($index + 1); ?></td>
+                                                        <td>
+                                                            <?php if ($home_team_logo): ?>
+                                                                <img src="<?php echo esc_url($home_team_logo); ?>" alt="<?php echo esc_attr($home_team_name); ?> Logo" />
+                                                            <?php endif; ?>
+                                                            <?php echo esc_html($home_team_name); ?>
+                                                        </td>
+                                                        <td><?php echo esc_html($home_team_score) . ' Vs ' . esc_html($road_team_score); ?></td>
+                                                        <td>
+                                                            <?php if ($road_team_logo): ?>
+                                                                <img src="<?php echo esc_url($road_team_logo); ?>" alt="<?php echo esc_attr($road_team_name); ?> Logo" />
+                                                            <?php endif; ?>
+                                                            <?php echo esc_html($road_team_name); ?>
+                                                        </td>
+                                                        <td><?php echo esc_html($venue); ?></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="5">
+                                                            <span class="span1">Upcoming</span> | <span>Preview</span>
+                                                        </td>
+                                                    </tr>
+                                                <?php endforeach; ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                <?php endforeach; ?>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+            </div>
+    <?php
+        }
+    } else {
+        echo '<p>No upcoming matches found matching your criteria.</p>';
+    }
+    wp_reset_postdata();
+
+    return ob_get_clean();
+}
+add_action('wp_ajax_pre_filter_schedule_matches', 'ajax_pre_filter_schedule_matches');
+add_action('wp_ajax_nopriv_pre_filter_schedule_matches', 'ajax_pre_filter_schedule_matches');
+
+function ajax_pre_filter_schedule_matches()
+{
+    check_ajax_referer('schedule_nonce', 'security');
+
+    parse_str($_POST['form_data'], $filters);
+
+    echo get_pre_schedule_matches($filters);
+    wp_die();
+}
+
 function func_pre_league_locations($atts)
 {
     ob_start();
@@ -3875,16 +3858,16 @@ function func_pre_league_locations($atts)
 
 
 
-    <?php
+<?php
     return ob_get_clean();
 }
 add_shortcode('pre_league_location', 'func_pre_league_locations');
 
-// Pre league Key dates
+
 function func_pre_league_keydates()
 {
     ob_start();
-    ?>
+?>
     <div class="pre_league_key_dates_main">
         <div class="pre_league_key_dates_inner">
             <div class="pre_league_key_dates_items">
@@ -3920,36 +3903,67 @@ function func_pre_league_keydates()
 
         </div>
     </div>
-    <?php
+<?php
     return ob_get_clean();
 }
 add_shortcode('pre_league_keydates', 'func_pre_league_keydates');
 
 
-// Post League Schedule tab
+// Post League
 function func_post_league_schedule($atts)
 {
     ob_start();
 
-    $tournament_query = new WP_Query(array('post_type' => 'sp_tournament', 'posts_per_page' => -1));
-    $team_query = new WP_Query(array('post_type' => 'sp_team', 'posts_per_page' => -1));
-    $venues = get_terms(['taxonomy' => 'sp_venue', 'orderby' => 'name', 'hide_empty' => false]);
-    $league = get_terms(['taxonomy' => 'sp_league', 'orderby' => 'name', 'hide_empty' => false]);
-    $event_args = new WP_Query(array('post_type' => 'sp_event', 'posts_per_page' => -1));
+    // Enqueue necessary scripts
+    wp_enqueue_script('jquery');
 
-    $atts = shortcode_atts(array(
-        'league' => '',
-    ), $atts, 'team_list');
+    // Localize script for AJAX
+    wp_localize_script('jquery', 'schedule_ajax', array(
+        'ajax_url' => admin_url('admin-ajax.php'),
+        'nonce' => wp_create_nonce('schedule_nonce')
+    ));
+?>
+    <script>
+        jQuery(document).ready(function($) {
+            // Function to handle AJAX filtering
+            function filterMatches() {
+                var formData = $('#eventFilterForm').serialize();
 
-    $league_slug = sanitize_title($atts['league']);
+//                 $.ajax({
+//                     url: schedule_ajax.ajax_url,
+//                     type: 'POST',
+//                     data: {
+//                         action: 'filter_schedule_matches',
+//                         form_data: formData,
+//                         security: schedule_ajax.nonce
+//                     },
+//                     beforeSend: function() {
+//                         $('#team-players-table').html('<div class="loading">Loading...</div>');
+//                     },
+//                     success: function(response) {
+//                         $('#team-players-table').html(response);
+//                     },
+//                     error: function(xhr, status, error) {
+//                         console.error(error);
+//                         $('#team-players-table').html('<div class="error">Error loading matches</div>');
+//                     }
+//                 });
+            }
 
-    ?>
+            // Bind change events to all select elements
+            $('#round-select, #match_type_select, #state-select, #venue-select').change(function() {
+                filterMatches();
+            });
+        });
+    </script>
+
     <form id="eventFilterForm" class="player_info_venue">
         <div class="form-group_main">
             <div class="form-group">
-                <select id="round-select" name="round[]">
+                <select id="round-select" name="round">
                     <option value="">Select Round</option>
                     <?php
+                    $tournament_query = new WP_Query(array('post_type' => 'sp_tournament', 'posts_per_page' => -1));
                     $unique_rounds = [];
                     if ($tournament_query->have_posts()) {
                         while ($tournament_query->have_posts()) {
@@ -3970,9 +3984,10 @@ function func_post_league_schedule($atts)
             </div>
 
             <div class="form-group">
-                <select id="match_type_select" name="match_type[]">
+                <select id="match_type_select" name="match_type">
                     <option value="">Select Match Type</option>
                     <?php
+                    $tournament_query = new WP_Query(array('post_type' => 'sp_tournament', 'posts_per_page' => -1));
                     if ($tournament_query->have_posts()) {
                         $unique_match_types = [];
                         while ($tournament_query->have_posts()) {
@@ -3984,18 +3999,17 @@ function func_post_league_schedule($atts)
                                 echo '<option value="' . esc_html($tournament_id) . '">' . esc_html($match_type) . '</option>';
                             }
                         }
-                        wp_reset_postdata(); // Reset after loop
-                    } else {
-                        echo '<option>No events found</option>';
+                        wp_reset_postdata();
                     }
                     ?>
                 </select>
             </div>
 
             <div class="form-group">
-                <select id="state-select" name="state[]">
+                <select id="state-select" name="state">
                     <option value="">Select State</option>
                     <?php
+                    $team_query = new WP_Query(array('post_type' => 'sp_team', 'posts_per_page' => -1));
                     $unique_states = [];
                     if ($team_query->have_posts()) {
                         while ($team_query->have_posts()) {
@@ -4007,15 +4021,17 @@ function func_post_league_schedule($atts)
                                 echo '<option value="' . $state_id . '">' . esc_html($state) . '</option>';
                             }
                         }
+                        wp_reset_postdata();
                     }
                     ?>
                 </select>
             </div>
 
             <div class="form-group">
-                <select id="venue-select" name="venue[]">
+                <select id="venue-select" name="venue">
                     <option value="">Select Venue</option>
                     <?php
+                    $venues = get_terms(['taxonomy' => 'sp_venue', 'orderby' => 'name', 'hide_empty' => false]);
                     foreach ($venues as $venue) {
                         echo '<option value="' . esc_attr($venue->term_id) . '">' . esc_html($venue->name) . '</option>';
                     }
@@ -4025,266 +4041,217 @@ function func_post_league_schedule($atts)
         </div>
     </form>
 
-
-    <?php
-    $args_tourna = new WP_Query(array(
-        'post_type' => 'sp_tournament',
-        'posts_per_page' => -1,
-        'tax_query' => array(
-            'relation' => 'AND',
-            array(
-                'taxonomy' => 'sp_league',
-                'field'    => 'slug',
-                'terms'    => $league_slug,
-            ),
-
-        ),
-    ));
-
-    if ($args_tourna->have_posts()) {
-        while ($args_tourna->have_posts()) {
-            $args_tourna->the_post();
-            $round_id = get_the_ID();
-            $event_metas = get_post_meta(get_the_ID());
-
-            echo "<pre>";
-            print_r($event_metas);
-            echo "</pre>";
-        }
-    }
-
-    ?>
-
     <div id="team-players-table">
-        <div class="">
-            <div class="round_1">
-                <div class="round_1_accordian">
-                    <div class="round_main_cont">
-                        <div class="round_1_img">
-                            <img src="http://localhost/npl/wp-content/uploads/2025/04/Frame-1000004890-1.png" alt="" />
-                        </div>
-                        <div class="round_1_content">
-                            <h4>Jan 21- 24</h4>
-                            <h2>Round 1</h2>
-                            <h5>SEAFORTH, PANANA</h5>
-                        </div>
-                    </div>
-
-                    <div class="chevron">
-                        <span class="chevron-icon"><i class="fa-solid fa-chevron-down"></i></span></span>
-                    </div>
-                </div>
-
-                <div class="round_inner" style="display: none;">
-                    <div class="round_inner_time">
-                        <h3>9:30 AM</h3>
-                    </div>
-                    <div class="">
-                        <table class="team-players-table" width="100%" cellspacing="0" cellpadding="0">
-                            <thead>
-                                <tr>
-                                    <th>Match</th>
-                                    <th>Home Team</th>
-                                    <th></th>
-                                    <th>Road Team</th>
-                                    <th>Venue</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Match 1</td>
-                                    <td><img src="" alt="Home Team Logo" /> Catepillar</td>
-                                    <td>0 Vs 0</td>
-                                    <td><img src="" alt="Road Team Logo" /> Turtles</td>
-                                    <td>The Jar - South Melbourne</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="5">
-                                        <span class="span1">Complete</span> | <span>Gallery</span>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div class="round_inner_time">
-                        <h3>11:30 AM</h3>
-                    </div>
-                    <div class="">
-                        <table class="team-players-table" width="100%" cellspacing="0" cellpadding="0">
-                            <thead>
-                                <tr>
-                                    <th>Match</th>
-                                    <th>Home Team</th>
-                                    <th></th>
-                                    <th>Road Team</th>
-                                    <th>Venue</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Match 1</td>
-                                    <td><img src="" alt="Home Team Logo" /> Catepillar</td>
-                                    <td>0 Vs 0</td>
-                                    <td><img src="" alt="Road Team Logo" /> Turtles</td>
-                                    <td>The Jar - South Melbourne</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="5">
-                                        <span class="span1">Complete</span> | <span>Gallery</span>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-            <div class="round_1">
-                <div class="round_1_accordian">
-                    <div class="round_main_cont">
-                        <div class="round_1_img">
-                            <img src="http://localhost/npl/wp-content/uploads/2025/04/Frame-1000004890-1.png" alt="" />
-                        </div>
-                        <div class="round_1_content">
-                            <h4>Jan 21- 24</h4>
-                            <h2>Round 1</h2>
-                            <h5>SEAFORTH, PANANA</h5>
-                        </div>
-                    </div>
-
-                    <div class="chevron">
-                        <span class="chevron-icon"><i class="fa-solid fa-chevron-down"></i></span></span>
-                    </div>
-                </div>
-
-                <div class="round_inner" style="display: none;">
-                    <div class="round_inner_time">
-                        <h3>9:30 AM</h3>
-                    </div>
-                    <div class="">
-                        <table class="team-players-table" width="100%" cellspacing="0" cellpadding="0">
-                            <thead>
-                                <tr>
-                                    <th>Match</th>
-                                    <th>Home Team</th>
-                                    <th></th>
-                                    <th>Road Team</th>
-                                    <th>Venue</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Match 1</td>
-                                    <td><img src="" alt="Home Team Logo" /> Catepillar</td>
-                                    <td>0 Vs 0</td>
-                                    <td><img src="" alt="Road Team Logo" /> Turtles</td>
-                                    <td>The Jar - South Melbourne</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="5">
-                                        <span class="span1">Complete</span> | <span>Gallery</span>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div class="round_inner_time">
-                        <h3>11:30 AM</h3>
-                    </div>
-                    <div class="">
-                        <table class="team-players-table" width="100%" cellspacing="0" cellpadding="0">
-                            <thead>
-                                <tr>
-                                    <th>Match</th>
-                                    <th>Home Team</th>
-                                    <th></th>
-                                    <th>Road Team</th>
-                                    <th>Venue</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Match 1</td>
-                                    <td><img src="" alt="Home Team Logo" /> Catepillar</td>
-                                    <td>0 Vs 0</td>
-                                    <td><img src="" alt="Road Team Logo" /> Turtles</td>
-                                    <td>The Jar - South Melbourne</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="5">
-                                        <span class="span1">Complete</span> | <span>Gallery</span>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-
-            </div>
-
-            <div class="round_1">
-                <div class="round_1_accordian">
-                    <div class="round_main_cont">
-                        <div class="round_1_img">
-                            <img src="http://localhost/npl/wp-content/uploads/2025/04/Frame-1000004890-1.png" alt="" />
-                        </div>
-                        <div class="round_1_content">
-                            <h4>Jan 21- 24</h4>
-                            <h2>Round 1</h2>
-                            <h5>SEAFORTH, PANANA</h5>
-                        </div>
-                    </div>
-
-                    <div class="chevron">
-                        <span class="chevron-icon"><i class="fa-solid fa-chevron-down"></i></span></span>
-                    </div>
-                </div>
-
-                <div class="round_inner" style="display: none;">
-                    <div class="round_inner_time">
-                        <h3>9:30 AM</h3>
-                    </div>
-                    <div class="">
-                        <table class="team-players-table" width="100%" cellspacing="0" cellpadding="0">
-                            <thead>
-                                <tr>
-                                    <th>Match</th>
-                                    <th>Home Team</th>
-                                    <th></th>
-                                    <th>Road Team</th>
-                                    <th>Venue</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Match 1</td>
-                                    <td><img src="" alt="Home Team Logo" /> Catepillar</td>
-                                    <td>0 Vs 0</td>
-                                    <td><img src="" alt="Road Team Logo" /> Turtles</td>
-                                    <td>The Jar - South Melbourne</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="5">
-                                        <span class="span1">Complete</span> | <span>Gallery</span>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-        </div>
+        <?php echo get_schedule_matches(); ?>
     </div>
+
     <?php
     return ob_get_clean();
 }
 add_shortcode('post_league_schedule', 'func_post_league_schedule');
 
-// Post league location tab
+// Function to get matches (used for initial load and AJAX)
+function get_schedule_matches($filters = array())
+{
+    ob_start();
+
+    $current_datetime = new DateTime('now');
+    $post_id = get_the_ID();
+
+    $args = array(
+        'post_type' => 'sp_tournament',
+        'posts_per_page' => -1,
+        'tax_query' => array(
+            array(
+                'taxonomy' => 'sp_league',
+                'field'    => 'slug',
+                'terms'    => 'npl',
+            )
+        ),
+    );
+
+    // Apply filters if provided
+    if (!empty($filters['round'])) {
+        $args['post__in'] = array($filters['round']);
+    }
+
+    $args_tourna = new WP_Query($args);
+
+    if ($args_tourna->have_posts()) {
+        while ($args_tourna->have_posts()) {
+            $args_tourna->the_post();
+
+            $event_metas = get_post_meta(get_the_ID());
+
+            if (!isset($event_metas['sp_events'][0]) || empty($event_metas['sp_events'][0])) {
+                continue;
+            }
+
+            $matches = maybe_unserialize($event_metas['sp_events'][0]);
+            $venue_terms = wp_get_post_terms($post_id, 'sp_venue', ['fields' => 'names']);
+
+            // Group matches by date and then by time
+            $matches_by_date = [];
+            foreach ($matches as $match) {
+                // Skip matches without results or with both scores as 0
+                if (
+                    !isset($match['results']) || empty($match['results']) ||
+                    (isset($match['results'][0]) && isset($match['results'][1]) &&
+                        $match['results'][0] == 0 && $match['results'][1] == 0)
+                ) {
+                    continue;
+                }
+
+                // Apply additional filters
+                if (!empty($filters['state'])) {
+                    $team_ids = $match['teams'] ?? array();
+                    if (!in_array($filters['state'], $team_ids)) {
+                        continue;
+                    }
+                }
+
+                if (!empty($filters['venue'])) {
+                    $venue_id = $event_metas['venue'][0] ?? '';
+                    if ($venue_id != $filters['venue']) {
+                        continue;
+                    }
+                }
+
+                if (!isset($match['date'], $match['hh'], $match['mm'])) {
+                    continue;
+                }
+
+                $date = $match['date'];
+                $time = $match['hh'] . ':' . $match['mm'];
+
+                if (!isset($matches_by_date[$date])) {
+                    $matches_by_date[$date] = [];
+                }
+
+                if (!isset($matches_by_date[$date][$time])) {
+                    $matches_by_date[$date][$time] = [];
+                }
+
+                $matches_by_date[$date][$time][] = $match;
+            }
+
+            ksort($matches_by_date);
+
+            if (empty($matches_by_date)) {
+                continue;
+            }
+    ?>
+            <div class="">
+                <div class="round_1">
+                    <div class="round_1_accordian">
+                        <div class="round_main_cont">
+                            <div class="round_1_img">
+                                <img src="http://localhost/npl/wp-content/uploads/2025/04/Frame-1000004890-1.png" alt="" />
+                            </div>
+                            <div class="round_1_content">
+                                <h4><?php echo esc_html($event_metas['start_date'][0] ?? ''); ?></h4>
+                                <h2><?php the_title(); ?></h2>
+                                <h5><?php echo esc_html($event_metas['venue'][0] ?? ''); ?></h5>
+                            </div>
+                        </div>
+
+                        <div class="chevron">
+                            <span class="chevron-icon"><i class="fa-solid fa-chevron-down"></i></span>
+                        </div>
+                    </div>
+
+                    <div class="round_inner" style="display: none;">
+                        <?php foreach ($matches_by_date as $date => $times): ?>
+                            <div class="date-container">
+                                <h2 class="match-date"><?php echo date('F j, Y', strtotime($date)); ?></h2>
+
+                                <?php foreach ($times as $time => $time_matches): ?>
+                                    <div class="time-slot-container">
+                                        <h3 class="match-time"><?php echo esc_html($time); ?></h3>
+
+                                        <table class="team-players-table" width="100%" cellspacing="0" cellpadding="0">
+                                            <thead>
+                                                <tr>
+                                                    <th>Match</th>
+                                                    <th>Home Team</th>
+                                                    <th>Score</th>
+                                                    <th>Away Team</th>
+                                                    <th>Venue</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php foreach ($time_matches as $index => $match):
+                                                    if (!isset($match['teams'][0], $match['teams'][1])) {
+                                                        continue;
+                                                    }
+
+                                                    $home_team_id = $match['teams'][0];
+                                                    $road_team_id = $match['teams'][1];
+                                                    $home_team_name = get_the_title($home_team_id);
+                                                    $road_team_name = get_the_title($road_team_id);
+                                                    $home_team_logo = get_the_post_thumbnail_url($home_team_id, 'thumbnail');
+                                                    $road_team_logo = get_the_post_thumbnail_url($road_team_id, 'thumbnail');
+                                                    $home_team_score = isset($match['results'][0]) ? $match['results'][0] : '-';
+                                                    $road_team_score = isset($match['results'][1]) ? $match['results'][1] : '-';
+                                                    $venue = $event_metas['venue'][0] ?? 'Unknown Venue';
+                                                ?>
+                                                    <tr>
+                                                        <td><?php echo 'Match ' . ($index + 1); ?></td>
+                                                        <td>
+                                                            <?php if ($home_team_logo): ?>
+                                                                <img src="<?php echo esc_url($home_team_logo); ?>" alt="<?php echo esc_attr($home_team_name); ?> Logo" />
+                                                            <?php endif; ?>
+                                                            <?php echo esc_html($home_team_name); ?>
+                                                        </td>
+                                                        <td><?php echo esc_html($home_team_score) . ' - ' . esc_html($road_team_score); ?></td>
+                                                        <td>
+                                                            <?php if ($road_team_logo): ?>
+                                                                <img src="<?php echo esc_url($road_team_logo); ?>" alt="<?php echo esc_attr($road_team_name); ?> Logo" />
+                                                            <?php endif; ?>
+                                                            <?php echo esc_html($road_team_name); ?>
+                                                        </td>
+                                                        <td><?php echo esc_html($venue); ?></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="5">
+                                                            <span class="span1">Completed</span> | <span>Gallery</span>
+                                                        </td>
+                                                    </tr>
+                                                <?php endforeach; ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                <?php endforeach; ?>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+            </div>
+    <?php
+        }
+    } else {
+        echo '<p>No completed matches found matching your criteria.</p>';
+    }
+    wp_reset_postdata();
+
+    return ob_get_clean();
+}
+
+// AJAX handler
+add_action('wp_ajax_filter_schedule_matches', 'ajax_filter_schedule_matches');
+add_action('wp_ajax_nopriv_filter_schedule_matches', 'ajax_filter_schedule_matches');
+
+function ajax_filter_schedule_matches()
+{
+    check_ajax_referer('schedule_nonce', 'security');
+
+    parse_str($_POST['form_data'], $filters);
+
+    echo get_schedule_matches($filters);
+
+    wp_die();
+}
+
 function func_post_league_locations($atts)
 {
     ob_start();
@@ -4402,16 +4369,16 @@ function func_post_league_locations($atts)
 
 
 
-    <?php
+<?php
     return ob_get_clean();
 }
 add_shortcode('post_league_location', 'func_post_league_locations');
 
-// Post league key dates
+
 function func_post_league_keydates()
 {
     ob_start();
-    ?>
+?>
     <div class="pre_league_key_dates_main">
         <div class="pre_league_key_dates_inner">
             <div class="pre_league_key_dates_items">
@@ -4453,7 +4420,8 @@ function func_post_league_keydates()
 add_shortcode('post_league_keydates', 'func_post_league_keydates');
 
 
-// mid league player list tab
+// mid league
+
 function func_mid_league_player_lists()
 {
     ob_start();
@@ -4532,7 +4500,8 @@ function func_mid_league_player_lists()
 }
 add_shortcode('mid_league_player_lists', 'func_mid_league_player_lists');
 
-// mid league replays tab
+
+
 function func_mid_league_replays()
 {
     ob_start();
@@ -4579,7 +4548,7 @@ function func_mid_league_replays()
             <div id="video-<?php echo esc_attr($post_id); ?>" class="modal">
                 <div class="modal-content">
                     <span class="close">&times;</span>
-                    <iframe width="480" height="300" src="<?php echo $video_url; ?>" frameborder="0" allowfullscreen></iframe>
+                    <iframe width="480" height="300" src="https://www.youtube.com/embed/<?php echo $video_url; ?>" frameborder="0" allowfullscreen></iframe>
                 </div>
             </div>
     <?php
@@ -4627,7 +4596,6 @@ function func_mid_league_replays()
 }
 add_shortcode('mid_league_replays', 'func_mid_league_replays');
 
-// mid league Gallery tab
 function func_mid_league_gallery()
 {
     ob_start();
@@ -4683,7 +4651,6 @@ function func_mid_league_gallery()
 }
 add_shortcode('mid_league_gallery', 'func_mid_league_gallery');
 
-// Mid league Schedule tabs
 function func_mid_league_schedule($atts)
 {
     ob_start();
@@ -4693,10 +4660,11 @@ function func_mid_league_schedule($atts)
     ], $atts, 'league_list');
 
     $league_slug = sanitize_title($atts['league']);
+    $current_datetime = new DateTime('now', new DateTimeZone('Australia/Sydney')); // Adjust timezone as needed
 
     $args_tourna = new WP_Query([
         'post_type' => 'sp_tournament',
-        'posts_per_page' => 1,
+        'posts_per_page' => -1, // Get all tournaments for the league
         'tax_query' => [
             [
                 'taxonomy' => 'sp_league',
@@ -4709,19 +4677,77 @@ function func_mid_league_schedule($atts)
     if ($args_tourna->have_posts()) {
         while ($args_tourna->have_posts()) {
             $args_tourna->the_post();
-            $round_id = get_the_ID();
+
+            $event_metas = get_post_meta(get_the_ID());
+
+            if (!isset($event_metas['sp_events'][0]) || empty($event_metas['sp_events'][0])) {
+                continue;
+            }
+
+            $matches = maybe_unserialize($event_metas['sp_events'][0]);
+            $venue = $event_metas['venue'][0] ?? 'Unknown Venue';
+            $start_date = $event_metas['start_date'][0] ?? '';
+
+            // Group matches by date and then by time
+            $matches_by_date = [];
+            foreach ($matches as $match) {
+                // Skip matches without date/time info
+                if (!isset($match['date'], $match['hh'], $match['mm'])) {
+                    continue;
+                }
+
+                // Create match datetime object
+                try {
+                    $match_datetime = new DateTime($match['date'] . ' ' . $match['hh'] . ':' . $match['mm'], new DateTimeZone('Australia/Sydney'));
+                } catch (Exception $e) {
+                    continue;
+                }
+
+                // Skip matches that are in the future
+                if ($match_datetime > $current_datetime) {
+                    continue;
+                }
+
+                // Skip matches without results or with both scores as 0
+                if (
+                    !isset($match['results']) || empty($match['results']) ||
+                    (isset($match['results'][0]) && isset($match['results'][1]) &&
+                        $match['results'][0] == 0 && $match['results'][1] == 0)
+                ) {
+                    continue;
+                }
+
+                $date = $match['date'];
+                $time = $match['hh'] . ':' . $match['mm'];
+
+                if (!isset($matches_by_date[$date])) {
+                    $matches_by_date[$date] = [];
+                }
+
+                if (!isset($matches_by_date[$date][$time])) {
+                    $matches_by_date[$date][$time] = [];
+                }
+
+                $matches_by_date[$date][$time][] = $match;
+            }
+
+            ksort($matches_by_date);
+
+            if (empty($matches_by_date)) {
+                continue;
+            }
         ?>
             <div id="team-players-table">
                 <div class="round_1">
                     <div class="round_1_accordian">
                         <div class="round_main_cont">
                             <div class="round_1_img">
-                                <img src="http://localhost/npl/wp-content/uploads/2025/04/Frame-1000004890-1.png" alt="Round 1 Image" />
+                                <img src="http://localhost/npl/wp-content/uploads/2025/04/Frame-1000004890-1.png" alt="Round Image" />
                             </div>
                             <div class="round_1_content">
-                                <h4>Jan 21-24</h4>
-                                <h2>Round 1</h2>
-                                <h5>SEAFORTH, PANANA</h5>
+                                <h4><?php echo esc_html($start_date); ?></h4>
+                                <h2><?php the_title(); ?></h2>
+                                <h5><?php echo esc_html($venue); ?></h5>
                             </div>
                         </div>
                         <div class="chevron">
@@ -4729,134 +4755,548 @@ function func_mid_league_schedule($atts)
                         </div>
                     </div>
                     <div class="round_inner" style="display: none;">
-                        <div class="round_inner_time">
-                            <h3>9:30 AM</h3>
-                        </div>
-                        <div>
-                            <table class="team-players-table" width="100%" cellspacing="0" cellpadding="0">
-                                <thead>
-                                    <tr>
-                                        <th>Match</th>
-                                        <th>Home Team</th>
-                                        <th></th>
-                                        <th>Road Team</th>
-                                        <th>Venue</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Match 1</td>
-                                        <td><img src="" alt="Home Team Logo" /> Catepillar</td>
-                                        <td>0 Vs 0</td>
-                                        <td><img src="" alt="Road Team Logo" /> Turtles</td>
-                                        <td>The Jar - South Melbourne</td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="5">
-                                            <span class="span1">Complete</span> | <span>Gallery</span>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                        <?php foreach ($matches_by_date as $date => $times): ?>
+                            <div class="date-container">
+                                <h2 class="match-date"><?php echo date('F j, Y', strtotime($date)); ?></h2>
+
+                                <?php foreach ($times as $time => $time_matches): ?>
+                                    <div class="round_inner_time">
+                                        <h3><?php echo esc_html($time); ?></h3>
+                                    </div>
+                                    <div>
+                                        <table class="team-players-table" width="100%" cellspacing="0" cellpadding="0">
+                                            <thead>
+                                                <tr>
+                                                    <th>Match</th>
+                                                    <th>Home Team</th>
+                                                    <th>Score</th>
+                                                    <th>Away Team</th>
+                                                    <th>Venue</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php foreach ($time_matches as $index => $match):
+                                                    if (!isset($match['teams'][0], $match['teams'][1])) {
+                                                        continue;
+                                                    }
+
+                                                    $home_team_id = $match['teams'][0];
+                                                    $road_team_id = $match['teams'][1];
+                                                    $home_team_name = get_the_title($home_team_id);
+                                                    $road_team_name = get_the_title($road_team_id);
+                                                    $home_team_logo = get_the_post_thumbnail_url($home_team_id, 'thumbnail');
+                                                    $road_team_logo = get_the_post_thumbnail_url($road_team_id, 'thumbnail');
+                                                    $home_team_score = isset($match['results'][0]) ? $match['results'][0] : '-';
+                                                    $road_team_score = isset($match['results'][1]) ? $match['results'][1] : '-';
+                                                ?>
+                                                    <tr>
+                                                        <td><?php echo 'Match ' . ($index + 1); ?></td>
+                                                        <td>
+                                                            <?php if ($home_team_logo): ?>
+                                                                <img src="<?php echo esc_url($home_team_logo); ?>" alt="<?php echo esc_attr($home_team_name); ?> Logo" />
+                                                            <?php endif; ?>
+                                                            <?php echo esc_html($home_team_name); ?>
+                                                        </td>
+                                                        <td><?php echo esc_html($home_team_score) . ' - ' . esc_html($road_team_score); ?></td>
+                                                        <td>
+                                                            <?php if ($road_team_logo): ?>
+                                                                <img src="<?php echo esc_url($road_team_logo); ?>" alt="<?php echo esc_attr($road_team_name); ?> Logo" />
+                                                            <?php endif; ?>
+                                                            <?php echo esc_html($road_team_name); ?>
+                                                        </td>
+                                                        <td><?php echo esc_html($venue); ?></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="5">
+                                                            <span class="span1">Completed</span> | <span>Gallery</span>
+                                                        </td>
+                                                    </tr>
+                                                <?php endforeach; ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                <?php endforeach; ?>
+                            </div>
+                        <?php endforeach; ?>
                     </div>
                 </div>
-            </div><?php
-                }
-            } else {
-                echo '<p>No tournaments found for this league.</p>';
-            }
-
-            wp_reset_postdata();
-            return ob_get_clean();
+            </div>
+        <?php
         }
-        add_shortcode('mid_league_schedule', 'func_mid_league_schedule');
+    } else {
+        echo '<p>No tournaments found for this league.</p>';
+    }
 
+    wp_reset_postdata();
+    return ob_get_clean();
+}
+add_shortcode('mid_league_schedule', 'func_mid_league_schedule');
 
-        function func_mid_league_overview($atts)
-        {
-            ob_start();
+function func_mid_league_overview($atts)
+{
+    ob_start();
 
-            // Extract and sanitize attributes
-            // $atts = shortcode_atts([ 
-            //     'match_id' => '5232', 
-            // ], $atts, 'mid_league_overview');
+    // Extract and sanitize attributes
+    $atts = shortcode_atts([
+        'match_id' => '',
+    ], $atts, 'mid_league_overview');
 
-            // $match_id = sanitize_text_field($atts['match_id']);
+    $match_id = sanitize_text_field($atts['match_id']);
 
-            // Set up query arguments
-            $query_args = [
-                'post_type' => 'sp_event',
-                'posts_per_page' => -1,
-                'order' => 'DESC',
-            ];
+    // Check if match_id is provided
+    if (empty($match_id)) {
+        echo '<p>No match ID provided. Please specify a match ID.</p>';
+        return ob_get_clean();
+    }
 
-            // Add meta_query if match_id is provided
-            // if (!empty($match_id)) {
-            //     $query_args['meta_query'] = [
-            //         [
-            //             'key' => 'match_id',
-            //             'value' => $match_id,
-            //             'compare' => '=',
-            //         ],
-            //     ];
-            // }
+    // Get the specific post by ID
+    $post = get_post($match_id);
 
-            $event_args = new WP_Query($query_args);
+    if ($post && $post->post_type === 'sp_event') {
+        setup_postdata($post);
 
-            if ($event_args->have_posts()) {
-                echo '<div class="mid-league-overview-container">';
+        $post_id = $post->ID;
+        $title = get_the_title($post_id);
+        $event_metas = get_post_meta($post_id);
+        $venue_terms = wp_get_post_terms($post_id, 'sp_venue', ['fields' => 'names']);
 
-                while ($event_args->have_posts()) {
-                    $event_args->the_post();
-                    $post_id = get_the_ID();
-                    $title = get_the_title($post_id);
-                    $event_metas = get_post_meta($post_id);
+        $team1_image_src = wp_get_attachment_image_src($event_metas['match_type_icon'][0] ?? '', 'full');
+        $team1_image = $team1_image_src[0] ?? '';
+        $video_url = $event_metas['sp_video'][0] ?? '';
 
-                    // Render event overview
-                    ?>
-                    <div class="event-overview">
-                        <div class="">
-                            <div class="">
-                                <div class="image_sec">
-                                    <img src="" />
-                                    <!-- feature image get -->
-                                </div>
-                                <div class="image_content">
-                                    <h3>Watch Live</h3>
-                                    <p><?php echo wp_trim_words( get_the_content(), 50, ''); ?></p>
-                                </div>
-                            </div>
-                            <div class="">
-                                <div class="">
-                                    <div class="">
-                                        <h3>match</h3>
-                                        <h2>Men Singles</h2>
-                                        <h5>Then jar - South Melbourne</h5>
-                                    </div>
-                                    <div class="">
-                                        <img src="" /> 
-                                        <!-- match type icon -->
-                                    </div>
-                                </div>
-                                <div class="">
-                                    <h4>players</h4>
-                                    <h3>Team vs Team</h3>
-                                </div>
-                            </div>
-                        </div>
-
+        ?>
+        <div class="mid-league-overview-container">
+            <!-- Event Overview -->
+            <div class="event_overview">
+                <div class="event_image_sec">
+                    <div class="image_sec">
+                        <img src="<?php echo esc_url(get_the_post_thumbnail_url($post_id, 'full')); ?>" alt="Event Image" />
                     </div>
-                    <?php
-                }
+                    <div class="image_content">
+                        <h3>Watch Live</h3>
+                        <p>
+                            <?php echo wp_trim_words(get_the_content($post_id), 14, ''); ?>
+                            <img src="<?php echo esc_url(get_stylesheet_directory_uri()); ?>/assets/images/PlayButton-1.svg"
+                                class="play-button"
+                                data-video-id="video_<?php echo esc_attr($post_id); ?>" />
+                        </p>
+                    </div>
+                </div>
 
-            echo '</div>';
-        } else {
-            echo '<p>No events found matching the specified criteria.</p>';
-        }
+                <!-- Event Details -->
+                <div class="event_content_sec">
+                    <div class="event-details">
+                        <h3>Match</h3>
+                        <h2><?php echo esc_html($event_metas['match_type'][0] ?? 'N/A'); ?></h2>
+                        <h5><?php echo !empty($venue_terms) ? esc_html(implode(', ', $venue_terms)) : 'Not specified'; ?></h5>
+                        <div class="match_type_icon">
+                            <img src="<?php echo esc_url($team1_image); ?>" alt="Match Type Icon" />
+                        </div>
+                    </div>
+                    <div class="event-details2">
+                        <h4>Players</h4>
+                        <h3><?php echo esc_html($title); ?></h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Popup Modal -->
+        <div class="replays_data_videos_inner">
+            <div id="video_<?php echo esc_attr($post_id); ?>" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <?php if ($video_url): ?>
+                        <iframe width="480" height="300" src="<?php echo esc_url($video_url); ?>" frameborder="0" allowfullscreen></iframe>
+                    <?php else: ?>
+                        <p>No video available for this event.</p>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                // Open Modal
+                const playButtons = document.querySelectorAll('.play-button');
+                playButtons.forEach(button => {
+                    button.addEventListener('click', function() {
+                        const videoId = this.getAttribute('data-video-id');
+                        const modal = document.getElementById(videoId);
+                        if (modal) modal.style.display = 'block';
+                    });
+                });
+
+                // Close Modal
+                const closeButtons = document.querySelectorAll('.close');
+                closeButtons.forEach(button => {
+                    button.addEventListener('click', function() {
+                        const modal = this.closest('.modal');
+                        if (modal) modal.style.display = 'none';
+                    });
+                });
+
+                // Close Modal on Outside Click
+                window.addEventListener('click', function(event) {
+                    const modals = document.querySelectorAll('.modal');
+                    modals.forEach(modal => {
+                        if (event.target === modal) {
+                            modal.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        </script>
+<?php
 
         // Reset post data
         wp_reset_postdata();
-        return ob_get_clean();
+    } else {
+        echo '<p>No event found for the specified match ID.</p>';
     }
+
+    return ob_get_clean();
+}
 add_shortcode('mid_league_overview', 'func_mid_league_overview');
+
+
+function func_mid_league_teams($atts) {
+    ob_start();
+
+    // Ensure jQuery is loaded
+    wp_enqueue_script('jquery');
+
+    // Handle shortcode attributes
+    $atts = shortcode_atts(array(
+        'league' => '',
+        'season' => '',
+    ), $atts);
+
+    // Prepare query arguments
+    $team_args = array(
+        'post_type' => 'sp_team',
+        'posts_per_page' => -1,
+        'orderby' => 'title',
+        'order' => 'ASC',
+    );
+
+    // Add league filter if specified
+    if (!empty($atts['league'])) {
+        $team_args['tax_query'] = array(
+            array(
+                'taxonomy' => 'sp_league',
+                'field' => 'slug',
+                'terms' => sanitize_title($atts['league'])
+            )
+        );
+    }
+
+    $team_query = new WP_Query($team_args);
+
+    if ($team_query->have_posts()) {
+        // Prepare teams data and collect unique states
+        $teams = array();
+        $states = array('All' => 'All');
+        $position = 1;
+        
+        while ($team_query->have_posts()) {
+            $team_query->the_post();
+            $team_id = get_the_ID();
+            $team_state = get_post_meta($team_id, 'state', true);
+            
+            if ($team_state && !isset($states[$team_state])) {
+                $states[$team_state] = $team_state;
+            }
+            
+            $teams[] = array(
+                'position' => $position++,
+                'id' => $team_id,
+                'logo' => get_the_post_thumbnail_url($team_id, 'thumbnail'),
+                'name' => get_the_title(),
+                'power' => get_post_meta($team_id, 'league_team_pwr', true),
+                'wins' => get_post_meta($team_id, 'league_team_won', true),
+                'losses' => get_post_meta($team_id, 'league_team_lost', true),
+                'for' => get_post_meta($team_id, 'league_team_f', true),
+                'r1' => get_post_meta($team_id, 'league_team_r1', true),
+                'r2' => get_post_meta($team_id, 'league_team_r2', true),
+                'r3' => get_post_meta($team_id, 'league_team_r3', true),
+                'r4' => get_post_meta($team_id, 'league_team_r4', true),
+                'points' => get_post_meta($team_id, 'league_team_pts', true),
+                'streak' => get_post_meta($team_id, 'league_team_strk', true),
+                'dupr' => get_post_meta($team_id, 'league_team_dupr', true),
+                'state' => $team_state
+            );
+        }
+
+        // Output the tabs and leaderboard
+        ?>
+        <div class="team-leaderboard-container1">
+            <!-- State Tabs Navigation -->
+            <h2 class="heading_underline">League Ladder</h2>
+
+            <div class="state-tabs">
+                <?php foreach ($states as $state_slug => $state_name): ?>
+                    <button class="state-tab<?php echo $state_slug === 'All' ? ' active' : ''; ?>" 
+                            data-state="<?php echo esc_attr($state_slug); ?>">
+                        <?php echo esc_html($state_name); ?>
+                    </button>
+                <?php endforeach; ?>
+            </div>
+            
+            <!-- Teams Table -->
+            <table class="team-leaderboard team-players-table">
+                <thead>
+                    <tr>
+                        <th>Pos</th>
+                        <th>Team</th>
+                        <th>State</th>
+                        <th>PWR</th>
+                        <th>Won</th>
+                        <th>Lost</th>
+                        <th>F</th>
+                        <th>R1</th>
+                        <th>R2</th>
+                        <th>R3</th>
+                        <th>R4</th>
+                        <th>PTS</th>
+                        <th>STRK</th>
+                        <th>DUPR</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($teams as $team): ?>
+                    <tr class="team-row" data-state="<?php echo esc_attr($team['state']); ?>">
+                        <td><?php echo esc_html($team['position']); ?></td>
+                        <td>
+                            <div class="team-info">
+                                <?php if ($team['logo']): ?>
+                                <img src="<?php echo esc_url($team['logo']); ?>" alt="<?php echo esc_attr($team['name']); ?>" width="40" height="40" />
+                                <?php endif; ?>
+                                <span class="team-name"><?php echo esc_html($team['name']); ?></span>
+                            </div>
+                        </td>
+                        <td><?php echo esc_html($team['state']); ?></td>
+                        <td><?php echo esc_html($team['power']); ?></td>
+                        <td><?php echo esc_html($team['wins']); ?></td>
+                        <td><?php echo esc_html($team['losses']); ?></td>
+                        <td><?php echo esc_html($team['for']); ?></td>
+                        <td><?php echo esc_html($team['r1']); ?></td>
+                        <td><?php echo esc_html($team['r2']); ?></td>
+                        <td><?php echo esc_html($team['r3']); ?></td>
+                        <td><?php echo esc_html($team['r4']); ?></td>
+                        <td><?php echo esc_html($team['points']); ?></td>
+                        <td><?php echo esc_html($team['streak']); ?></td>
+                        <td><?php echo esc_html($team['dupr']); ?></td>
+                    </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+
+        <style>
+            /* Tab Styles */
+            .team-leaderboard-container1 .state-tabs {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                margin-bottom: 20px;
+                padding-bottom: 10px;
+                border-bottom: 1px solid #e0e0e0;
+            }
+            
+            .team-leaderboard-container1 .state-tab {
+                padding: 8px 16px;
+                background: #f5f5f5;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                font-size: 14px;
+            }
+            
+            .team-leaderboard-container1 .state-tab:hover {
+                background: #e0e0e0;
+            }
+            
+            .team-leaderboard-container1 .state-tab.active {
+                background: #0073aa;
+                color: white;
+            }
+            
+            /* Table Styles */
+            .team-leaderboard-container1 .team-leaderboard-container {
+                width: 100%;
+                overflow-x: auto;
+                margin: 20px 0;
+            }
+            
+            .team-leaderboard-container1 .team-leaderboard {
+                width: 100%;
+                border-collapse: collapse;
+                font-size: 14px;
+            }
+            
+            .team-leaderboard-container1 .team-leaderboard th, 
+            .team-leaderboard-container1 .team-leaderboard td {
+                padding: 8px 12px;
+                text-align: center;
+                border-bottom: 1px solid #e0e0e0;
+            }
+            
+            .team-leaderboard-container1 .team-leaderboard th {
+                background-color: #f5f5f5;
+                font-weight: 600;
+                white-space: nowrap;
+            }
+            
+            /* Row visibility control */
+            .team-leaderboard-container1 .team-row {
+                display: table-row;
+            }
+            
+            .team-leaderboard-container1 .team-row.hidden {
+                display: none;
+            }
+            
+            /* Team info styles */
+            .team-leaderboard-container1 .team-info {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                text-align: left;
+            }
+            
+            .team-leaderboard-container1 .team-info img {
+                border-radius: 50%;
+                object-fit: cover;
+            }
+            
+            /* Responsive adjustments */
+            @media (max-width: 768px) {
+                .team-leaderboard-container1 .state-tabs {
+                    gap: 4px;
+                }
+                
+                .team-leaderboard-container1 .state-tab {
+                    padding: 6px 12px;
+                    font-size: 13px;
+                }
+                
+                .team-leaderboard-container1 .team-leaderboard th, 
+                .team-leaderboard-container1 .team-leaderboard td {
+                    padding: 6px 8px;
+                    font-size: 13px;
+                }
+                
+                .team-leaderboard-container1 .team-info {
+                    gap: 6px;
+                }
+                
+                .team-leaderboard-container1 .team-info img {
+                    width: 30px;
+                    height: 30px;
+                }
+            }
+        </style>
+
+        <script type="text/javascript">
+            (function($) {
+                $(document).ready(function() {
+                    // Initialize - hide all non-All state rows if All is active
+                    if ($('.state-tab.active').data('state') === 'All') {
+                        $('.team-row').removeClass('hidden');
+                    } else {
+                        var activeState = $('.state-tab.active').data('state');
+                        $('.team-row').addClass('hidden');
+                        $('.team-row[data-state="' + activeState + '"]').removeClass('hidden');
+                    }
+                    
+                    // Tab click handler
+                    $('.state-tab').on('click', function() {
+                        // Update active tab
+                        $('.state-tab').removeClass('active');
+                        $(this).addClass('active');
+                        
+                        // Get selected state
+                        var state = $(this).data('state');
+                        
+                        // Show/hide teams
+                        if (state === 'All') {
+                            $('.team-row').removeClass('hidden');
+                        } else {
+                            $('.team-row').addClass('hidden');
+                            $('.team-row[data-state="' + state + '"]').removeClass('hidden');
+                        }
+                    });
+                });
+            })(jQuery);
+        </script>
+        <?php
+    } else {
+        echo '<p>No teams found for the specified criteria.</p>';
+    }
+
+    wp_reset_postdata();
+    return ob_get_clean();
+}
+
+add_shortcode('mid_league_teams', 'func_mid_league_teams');
+
+
+function func_get_events_in_round_1()
+{
+    $args = array(
+        'post_type'      => 'sp_event', // SportsPress events post type
+        'posts_per_page' => -1,        // Retrieve all posts
+        // 'tax_query'      => array(
+        //     array(
+        //         'taxonomy' => 'sp_round', // Taxonomy for rounds
+        //         'field'    => 'slug',    // Use the slug to identify terms
+        //         'terms'    => array(     // Specify the slugs for the 5 rounds
+        //             'round-1',
+        //             'round-2',
+        //             'round-3',
+        //             'round-4',
+        //             'round-5',
+        //         ),
+        //         'operator' => 'IN', // Fetch posts matching any of these terms
+        //     ),
+        // ),
+    );
+
+    $query = new WP_Query($args);
+
+    if ($query->have_posts()) {
+        echo '<table>';
+        echo '<thead>
+                        <tr>
+                            <th>Match Title</th>
+                            <th>Date</th>
+                            <th>Venue</th>
+                        </tr>
+                      </thead>';
+        echo '<tbody>';
+
+        while ($query->have_posts()) {
+            $query->the_post();
+
+            $match_date = get_post_meta(get_the_ID(), 'sp_date', true); // Match date
+            $venue_terms = wp_get_post_terms(get_the_ID(), 'sp_venue', array('fields' => 'names')); // Venue
+
+            echo '<tr>';
+            echo '<td>' . esc_html(get_the_title()) . '</td>';
+            echo '<td>' . date('F j, Y', strtotime($match_date)) . '</td>';
+            echo '<td>' . (!empty($venue_terms) ? esc_html(implode(', ', $venue_terms)) : 'Not specified') . '</td>';
+            echo '</tr>';
+        }
+
+        echo '</tbody>';
+        echo '</table>';
+    } else {
+        echo '<p>No matches found in the specified rounds.</p>';
+    }
+
+    wp_reset_postdata();
+}
+add_shortcode('get_events_in_round_1', 'func_get_events_in_round_1');
+
