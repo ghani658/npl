@@ -5300,3 +5300,374 @@ function func_get_events_in_round_1()
 }
 add_shortcode('get_events_in_round_1', 'func_get_events_in_round_1');
 
+// News page listing (Ghani) 
+
+function func_news_page_listing($atts) {
+    ob_start();
+
+    // Extract shortcode attributes and handle multiple categories
+    $atts = shortcode_atts(array(
+        'categories' => '', // Comma-separated category IDs
+        'category_ids' => '', // Legacy support
+    ), $atts);
+
+    // Get category IDs from shortcode attributes
+    $shortcode_categories = array();
+    if (!empty($atts['categories'])) {
+        $shortcode_categories = array_map('intval', explode(',', $atts['categories']));
+    } elseif (!empty($atts['category_ids'])) { // Legacy support
+        $shortcode_categories = array_map('intval', explode(',', $atts['category_ids']));
+    }
+    
+    // Get categories specified in shortcode for buttons
+    $categories = array();
+    if (!empty($shortcode_categories)) {
+        $categories = get_terms(array(
+            'taxonomy' => 'news_category',
+            'hide_empty' => false,
+            'include' => $shortcode_categories
+        ));
+        
+        if (is_wp_error($categories)) {
+            $categories = array();
+        }
+    }
+
+    // Get all categories for dropdown
+    $all_categories = get_terms(array(
+        'taxonomy' => 'news_category',
+        'hide_empty' => false
+    ));
+    
+    if (is_wp_error($all_categories)) {
+        $all_categories = array();
+    }
+
+    // Display filters
+    echo '<div class="news-filters">';
+    
+    echo '<div class="custom-dropdown">';
+    echo '<div class="dropdown-header">Select Category<span class="dropdown-arrow"></span></div>';
+    echo '<div class="dropdown-content">';
+    echo '<div class="category-search">';
+    echo '<input type="text" class="category-search-input" placeholder="Search categories...">';
+    echo '</div>';
+    echo '<div class="dropdown-items">';
+    echo '<div class="dropdown-item" data-category-id="0">All Categories</div>';
+    foreach ($all_categories as $category) {
+        echo '<div class="dropdown-item" data-category-id="' . $category->term_id . '">' . $category->name . '</div>';
+    }
+    echo '</div>';
+    echo '</div>';
+    echo '</div>';
+    echo '</div>'; // Close news-filters
+
+    // Category heading
+    echo '<h2 class="category-heading">All Categories</h2>';
+
+    // Display category buttons
+    echo '<div class="news-category-filters">';
+    // All posts button
+    echo '<button type="button" class="category-button active" data-category-id="0">All Categories</button>';
+    
+    // Category buttons - using filtered categories from shortcode
+    if (!empty($categories)) {
+        foreach ($categories as $category) {
+            echo '<button type="button" class="category-button" '
+                 . 'data-category-id="' . esc_attr($category->term_id) . '">' 
+                 . esc_html($category->name) . '</button>';
+        }
+    }
+    echo '</div>';
+
+    // Add loader after buttons
+    echo '<div class="loader"></div>';
+
+    // Add container for AJAX-loaded content
+    echo '<div id="news-content">';
+
+    // Initial query arguments
+    $args = array(
+        'post_type' => 'newspost',
+        'posts_per_page' => 12,
+        'orderby' => 'date',
+        'order' => 'DESC',
+    );
+
+    // If shortcode has categories, show posts from those categories initially
+    if (!empty($shortcode_categories)) {
+        $args['tax_query'] = array(
+            array(
+                'taxonomy' => 'news_category',
+                'field' => 'term_id',
+                'terms' => $shortcode_categories,
+            ),
+        );
+    }
+
+    $query = new WP_Query($args);
+    render_news_posts($query, $shortcode_categories);
+
+    echo '</div>'; // Close news-content div
+
+    // Initialize JavaScript
+    ?>
+    <script>
+    var ajaxurl = '<?php echo admin_url('admin-ajax.php'); ?>';
+    var newsNonce = '<?php echo wp_create_nonce('news_filter_nonce'); ?>';
+    
+    jQuery(document).ready(function($) {
+        var shortcodeCategories = <?php echo json_encode($shortcode_categories); ?>;
+        var selectedCategory = 0;
+        var searchTimer;
+
+        // Toggle dropdown
+        $('.dropdown-header').on('click', function() {
+            $('.dropdown-content').toggleClass('active');
+            $('.dropdown-arrow').toggleClass('up');
+        });
+
+        // Close dropdown when clicking outside
+        $(document).on('click', function(e) {
+            if (!$(e.target).closest('.custom-dropdown').length) {
+                $('.dropdown-content').removeClass('active');
+                $('.dropdown-arrow').removeClass('up');
+            }
+        });
+
+        // Handle dropdown item click
+        $('.dropdown-item').on('click', function() {
+            var categoryId = parseInt($(this).data('category-id'));
+            var categoryName = $(this).text();
+            selectedCategory = categoryId;
+            
+            // Update dropdown text and close dropdown
+            $('.dropdown-header').text(categoryName);
+            $('.dropdown-content').removeClass('active');
+            $('.dropdown-arrow').removeClass('up');
+
+            // Reset all buttons' active state
+            $('.category-button').removeClass('active');
+            
+            // If All Categories is selected
+            if (categoryId === 0) {
+                $('.category-button[data-category-id="0"]').addClass('active');
+            } else {
+                // Check if there's a matching button
+                var matchingButton = $('.category-button[data-category-id="' + categoryId + '"]');
+                if (matchingButton.length) {
+                    matchingButton.addClass('active');
+                }
+            }
+
+            loadPosts(categoryId, $('.news-search-input').val(), true);
+        });
+
+        // Handle category button click
+        $(document).on('click', '.category-button', function() {
+            var categoryId = parseInt($(this).data('category-id'));
+            var categoryName = $(this).text();
+            selectedCategory = categoryId;
+            
+            // Update button states
+            $('.category-button').removeClass('active');
+            $(this).addClass('active');
+            
+            // Update dropdown text
+            if (categoryId > 0) {
+                $('.dropdown-header').text(categoryName);
+            } else {
+                $('.dropdown-header').text('Select Category');
+            }
+            
+            // Load posts with button context
+            loadPosts(categoryId, $('.news-search-input').val(), false);
+        });
+
+        // Handle category search
+        $('.category-search-input').on('input', function() {
+            var searchQuery = $(this).val().toLowerCase();
+            $('.dropdown-item').each(function() {
+                var text = $(this).text().toLowerCase();
+                $(this).toggle(text.includes(searchQuery));
+            });
+        });
+
+
+
+        function loadPosts(categoryId, searchQuery, fromDropdown = false) {
+            // Update heading
+            var categoryName = 'All Categories';
+            if (categoryId > 0) {
+                categoryName = $('.dropdown-item[data-category-id="' + categoryId + '"]').text() || 
+                             $('.category-button[data-category-id="' + categoryId + '"]').text();
+            }
+            $('.category-heading').text(categoryName);
+
+            // Show loader in place of posts
+            $('.news-grid').fadeOut(200, function() {
+                $('.loader').fadeIn(200);
+            });
+
+            $.ajax({
+                url: ajaxurl,
+                type: 'POST',
+                data: {
+                    action: 'load_category_posts',
+                    category: categoryId,
+                    search: searchQuery,
+                    shortcode_categories: shortcodeCategories,
+                    from_dropdown: fromDropdown,
+                    nonce: newsNonce
+                },
+                success: function(response) {
+                    // Hide loader and show new posts with fade
+                    $('.loader').fadeOut(200, function() {
+                        $('.news-grid').replaceWith(response);
+                        $('.news-grid').hide().fadeIn(300);
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.error('AJAX Error:', error);
+                    // Hide loader and show error
+                    $('.loader').hide();
+                    $('.news-grid').show();
+                }
+            });
+        }
+
+        // Initialize variables
+        var searchTimer = null;
+        var categorySearchTimer = null;
+        var selectedCategory = 0;
+
+        // Load initial posts for All Categories
+        loadPosts(0, '', false);
+    });
+    </script>
+    <?php
+
+    wp_reset_postdata();
+    return ob_get_clean();
+}
+add_shortcode('news_page_listing', 'func_news_page_listing');
+
+// AJAX handler for loading posts
+// Helper function to render news posts
+function render_news_posts($query, $shortcode_categories = array()) {
+    if ($query->have_posts()) {
+        echo '<div class="news-grid">';
+        $count = 0;
+
+        while ($query->have_posts()) {
+            $query->the_post();
+            $post_id = get_the_ID();
+            $categories = get_the_terms($post_id, 'news_category');
+            $category_names = array();
+
+            if ($categories && !is_wp_error($categories)) {
+                foreach ($categories as $category) {
+                    $category_names[] = $category->name;
+                }
+            }
+
+            echo '<div class="news-item' . ($count < 2 ? ' featured' : '') . '">';
+            if ($count < 2 && has_post_thumbnail()) {
+                echo '<div class="news-image">';
+                echo get_the_post_thumbnail(null, 'full');
+                echo '</div>';
+            }
+            echo '<div class="news-content">';
+            if (!empty($category_names)) {
+                echo '<div class="news-categories">' . implode(', ', $category_names) . '</div>';
+            }
+            echo '<h3>' . get_the_title() . '</h3>';
+            echo '<div class="news-excerpt">' . get_the_excerpt() . '</div>';
+            echo '<a href="' . get_permalink() . '" class="read-more">Read More</a>';
+            echo '</div>'; // Close news-content
+            echo '</div>'; // Close news-item
+
+            $count++;
+        }
+        echo '</div>'; // Close news-grid
+    } else {
+        echo '<div class="no-posts">No posts found.</div>';
+    }
+    
+    wp_reset_postdata();
+}
+
+// AJAX handler for loading posts
+function load_category_posts() {
+    check_ajax_referer('news_filter_nonce', 'nonce');
+    
+    $category_id = isset($_POST['category']) ? intval($_POST['category']) : 0;
+    $search_query = isset($_POST['search']) ? sanitize_text_field($_POST['search']) : '';
+    $shortcode_categories = isset($_POST['shortcode_categories']) ? array_map('intval', $_POST['shortcode_categories']) : array();
+    $from_dropdown = isset($_POST['from_dropdown']) ? filter_var($_POST['from_dropdown'], FILTER_VALIDATE_BOOLEAN) : false;
+
+    $args = array(
+        'post_type' => 'newspost',
+        'posts_per_page' => 12,
+        'orderby' => 'date',
+        'order' => 'DESC',
+        'suppress_filters' => false,
+    );
+
+    // Apply search query if exists
+    if (!empty($search_query)) {
+        $args['s'] = $search_query;
+    }
+
+    // Add category filter
+    if ($from_dropdown) {
+        // For dropdown selection
+        if ($category_id > 0) {
+            // Show posts from selected category
+            $args['tax_query'] = array(
+                array(
+                    'taxonomy' => 'news_category',
+                    'field' => 'term_id',
+                    'terms' => $category_id,
+                ),
+            );
+        }
+    } else {
+        // For button clicks
+        if (!empty($shortcode_categories)) {
+            if ($category_id > 0) {
+                // Show posts from specific category if it's in shortcode
+                if (in_array($category_id, $shortcode_categories)) {
+                    $args['tax_query'] = array(
+                        array(
+                            'taxonomy' => 'news_category',
+                            'field' => 'term_id',
+                            'terms' => $category_id,
+                        ),
+                    );
+                } else {
+                    // Category not in shortcode, return no posts
+                    $args['post__in'] = array(0);
+                }
+            } else {
+                // All Categories button - show posts from all shortcode categories
+                $args['tax_query'] = array(
+                    array(
+                        'taxonomy' => 'news_category',
+                        'field' => 'term_id',
+                        'terms' => $shortcode_categories,
+                        'operator' => 'IN',
+                    ),
+                );
+            }
+        }
+    }
+
+    $query = new WP_Query($args);
+    render_news_posts($query, $shortcode_categories);
+    wp_die();
+}
+add_action('wp_ajax_load_category_posts', 'load_category_posts');
+add_action('wp_ajax_nopriv_load_category_posts', 'load_category_posts');
+
+
