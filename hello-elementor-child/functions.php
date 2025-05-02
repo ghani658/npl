@@ -5591,7 +5591,7 @@ function render_news_posts($query, $shortcode_categories = array()) {
         }
         echo '</div>'; // Close news-grid
     } else {
-        echo '<div class="no-posts">No posts found.</div>';
+        echo '<div class="news-grid"><div class="no-posts-message">No posts found in this category.</div></div>';
     }
     
     wp_reset_postdata();
