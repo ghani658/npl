@@ -6,26 +6,31 @@
  * Description:    Hello Elementor is a lightweight and minimalist WordPress theme that was built specifically to work seamlessly with the Elementor site builder plugin. The theme is free, open-source, and designed for users who want a flexible, easy-to-use, and customizable website. The theme, which is optimized for performance, provides a solid foundation for users to build their own unique designs using the Elementor drag-and-drop site builder. Its simplicity and flexibility make it a great choice for both beginners and experienced Web Creators.
  */
 
-body.wp-theme-hello-elementor,  body.wp-child-theme-hello-elementor-child {
+ body.wp-theme-hello-elementor,  body.wp-child-theme-hello-elementor-child {
 	font-family: "Suisse Intl" !important;
 }
 
-
+.home .recent-annoucement .elementor-post__text {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: flex-end;
+}
+.home .recent-annoucement .elementor-post__thumbnail__link {
+  margin-bottom: 20px !important;
+}
+.home .recent-annoucement .elementor-post__meta-data {
+  margin-bottom: 15px;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 22px;
+  color: #000;
+}
 
 
 /* media query for 1440 max screen */
 @media (min-width: 1440px) {
 
-	.home .recent-annoucement .elementor-post__meta-data {
-	   margin-bottom: 15px;
-	   font-size: 18px;
-	   font-weight: bold;
-	   line-height: 24px;
-	   text-transform: uppercase;
-	   color: #000;
-	   position: absolute;
-	   top: 360px;
-	}
+	
    .home #home-shop-section .woocommerce-loop-product__buttons {
 	   visibility: hidden;
    }
@@ -262,9 +267,6 @@ body.wp-theme-hello-elementor,  body.wp-child-theme-hello-elementor-child {
   }
   .rank_labels_mobile {
     display: block;
-  }
-  .home_sec1 .e-con-inner .elementor-element:nth-child(1) {
-    order: 1;
   }
   .league-season-header .league-name,
   .league-season-header .season-name,
@@ -2064,20 +2066,15 @@ body .news-image img {
 }
 /* No Posts Message */
 .no-posts-message {
-    text-align: center;
-    padding: 40px 20px;
     font-size: 18px;
     color: #6c757d;
-    background: #f8f9fa;
-    border-radius: 8px;
-    margin: 20px;
 }
 
 /* News Listing Styles - End */
 
 
 /* Loader */
-.loader {
+.loader, .news-widget-loader {
     display: none;
     text-align: center;
     position: relative;
@@ -2086,7 +2083,7 @@ body .news-image img {
     grid-column: 1 / -1;
 }
 
-.loader:after {
+.loader:after, .news-widget-loader:after {
     content: '';
     display: inline-block;
     width: 100px;
@@ -2105,4 +2102,255 @@ body .news-image img {
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
+}
+
+/* News Widget Styles */
+.news-widget {
+    max-width: 100%;
+   display: flex;
+   flex-direction: column;
+}
+
+.news-widget h3.main-heading {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #000;
+    line-height: 1.5rem;
+    margin: 0 0 15px;
+}
+
+.news-widget .main-heading-link {
+    display: none;
+    align-items: center;
+    gap: 11px;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #000;
+    line-height: normal;
+    margin: 0 0 15px;
+}
+
+.news-widget .main-heading-link img {
+    width: 11x;
+    height: 11px;
+}
+
+.news-nav {
+    border-bottom: 3px solid #999999;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.news-nav:after {
+  content: '';
+  position: absolute;
+  width: 140px;
+  height: 3px;
+  background: #000;
+  bottom: -3px;
+}
+
+.news-nav .news-nav-arrow {
+  width: 50px;
+  position: absolute;
+  padding: 12px 0;
+  border: 0;
+  top: 0;
+}
+
+.news-nav .news-nav-arrow.prev {
+  left: 0;
+  background: linear-gradient(90deg, #FFFFFF 49.5%, rgba(255, 255, 255, 0) 100%) !important;
+  text-align: left;
+}
+
+.news-nav .news-nav-arrow.prev img {
+  transform: rotate(180deg);
+}
+
+.news-nav .news-nav-arrow.next {
+  right: 0;
+  background: linear-gradient(270deg, #FFFFFF 49.5%, rgba(255, 255, 255, 0) 100%) !important;
+  text-align: right;
+}
+
+
+.news-nav-arrow.hidden {
+  display: none;
+}
+
+.news-nav-scroll {
+    display: flex;
+    white-space: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+    flex: 1;
+}
+
+.news-nav-scroll a {
+  padding: 6px 15px;
+  color: #666666 !important;
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.news-nav-scroll a.active {
+  color: #000;
+}
+
+.news-nav-scroll::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+}
+
+.news-widget-content {
+  display: flex;
+  flex-direction: column;
+  gap: 38px;
+}
+
+
+.news-widget-heading {
+    font-size: 24px;
+    font-weight: 600;
+    margin: 0;
+    color: #000;
+}
+
+.news-widget-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+
+.news-widget-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.news-widget-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.news-widget-date {
+    color: #000;
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.news-widget-info h3 {
+  font-size: 1.5rem;
+  line-height: 1.7rem;
+  color: #000;
+  font-weight: 600;
+  margin: 0 0 2rem;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+}
+
+.news-widget-category {
+  color: #000;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.news-widget-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.news-widget-button {
+  display: flex;
+  border: 3px solid #BBBBBB;
+  border-radius: 30px;
+  justify-content: center;
+  padding: 0.5rem;
+  font-weight: 700;
+  color: #000;
+  height: 48px;
+}
+
+.sponser {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.sponser span {
+    font-size: 13px;
+    font-weight: 700;
+    color: #000;
+}
+
+@media (max-width: 768px) {
+  .news-nav {
+    padding-bottom: 2px;
+  }
+  .news-nav-scroll a {
+    padding: 8px;
+    font-size: 0.875rem;
+  }
+  .news-widget h3.main-heading {
+    display: none;
+  }
+  .news-widget .main-heading-link {
+    display: flex;
+  }
+  .news-widget-heading {
+    display: none;
+  }
+  .news-widget-date, .news-widget-category {
+    font-size: 14px;
+  }
+  .news-widget-info h3 {
+    font-size: 1rem;
+    margin-bottom: 10px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 54px;
+  }
+  .news-nav .news-nav-arrow {
+    padding: 8px 0;
+  }
+  .news-widget-footer {
+    display: none;
+  }
+  .news-widget-grid {
+    gap: 0;
+    overflow-x: auto;
+    display: flex;
+    flex-wrap: nowrap;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+    flex-direction: row;
+  }
+  .news-widget-item {
+    flex: 0 0 100%;
+    width: 100%;
+    scroll-snap-align: start;
+  }
+}
+
+.sidebarWidget .league-season-header {
+  margin: 0px 0 20px;
 }

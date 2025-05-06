@@ -969,7 +969,6 @@ function filter_league_tabs_schedule()
     // $state = sanitize_text_field($_POST['state'] ?? '');
     // $round = sanitize_text_field($_POST['round'] ?? '');
     // $match_type = sanitize_text_field($_POST['match_type'] ?? '');
-
     // $venue = intval($_POST['venue'] ?? 0);
 
     // $args = [
@@ -3038,30 +3037,37 @@ function func_post_league_schedule($atts) {
             'Round 1' => array(
                 'teams' => 32,
                 'matches' => 16,
-                'label' => 'Round of 32'
+                'label' => 'Round 1'
             ),
             'Round 2' => array(
                 'teams' => 16,
                 'matches' => 8,
-                'label' => 'Round of 16'
+                'label' => 'Round 2'
             ),
             'Round 3' => array(
                 'teams' => 8,
                 'matches' => 4,
-                'label' => 'Quarter Finals'
+                'label' => 'Round 3'
             ),
             'Round 4' => array(
                 'teams' => 4,
                 'matches' => 2,
-                'label' => 'Semi Finals'
+                'label' => 'Round 4'
             ),
             'Round 5' => array(
                 'teams' => 2,
                 'matches' => 1,
-                'label' => 'Finals'
+                'label' => 'Round 5'
             )
         );
 
+        // Debug: Check if SportsPress is active
+        
+
+        // Debug: Check for required post types
+        if (!post_type_exists('sp_tournament') || !post_type_exists('sp_team')) {
+            throw new Exception("Required SportsPress post types are not registered.");
+        }
         
         // Output the filter form
         ?>
@@ -3297,115 +3303,7 @@ function func_post_league_schedule($atts) {
             ?>
         </div>
 
-        <style>
-            .tournament-container {
-                margin-bottom: 40px;
-                border: 1px solid #ddd;
-                border-radius: 8px;
-                overflow: hidden;
-                background: #fff;
-                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            }
-            .tournament-header {
-                display: flex;
-                align-items: center;
-                padding: 20px;
-                background-color: #f5f5f5;
-                border-bottom: 1px solid #ddd;
-            }
-            .tournament-logo {
-                margin-right: 20px;
-            }
-            .tournament-logo img {
-                width: 80px;
-                height: 80px;
-                object-fit: contain;
-            }
-            .tournament-info h2 {
-                margin: 0 0 5px 0;
-                font-size: 24px;
-                color: #333;
-            }
-            .tournament-info h4, .tournament-info h5 {
-                margin: 5px 0;
-                color: #666;
-            }
-            .round-container {
-                padding: 20px;
-                border-bottom: 1px solid #eee;
-            }
-            .round-container:last-child {
-                border-bottom: none;
-            }
-            .round-title {
-                margin: 0 0 15px 0;
-                font-size: 20px;
-                color: #333;
-                cursor: pointer;
-                padding: 10px;
-                background-color: #f9f9f9;
-                border-radius: 4px;
-            }
-            .round-title:hover {
-                background-color: #eee;
-            }
-            .match-date-container {
-                margin-bottom: 20px;
-            }
-            .match-date {
-                margin: 0 0 10px 0;
-                font-size: 16px;
-                color: #444;
-                padding-left: 10px;
-            }
-            .match-table {
-                width: 100%;
-                border-collapse: collapse;
-                margin-bottom: 20px;
-            }
-            .match-table th, .match-table td {
-                padding: 12px 15px;
-                text-align: left;
-                border-bottom: 1px solid #eee;
-            }
-            .match-table th {
-                background-color: #f9f9f9;
-                font-weight: 600;
-            }
-            .match-table tr:hover {
-                background-color: #f5f5f5;
-            }
-            .match-table img {
-                width: 30px;
-                height: 30px;
-                margin-right: 10px;
-                vertical-align: middle;
-                border-radius: 50%;
-            }
-            .no-matches {
-                padding: 15px;
-                background-color: #f9f9f9;
-                border-radius: 4px;
-                margin-bottom: 20px;
-            }
-            .empty-match {
-                padding: 10px;
-                margin-bottom: 10px;
-                background-color: #fff;
-                border: 1px dashed #ddd;
-                border-radius: 3px;
-            }
-            .empty-match p {
-                margin: 0;
-                color: #888;
-            }
-            .no-tournaments {
-                padding: 20px;
-                text-align: center;
-                background-color: #f9f9f9;
-                border-radius: 4px;
-            }
-        </style>
+        
 
         <script>
             jQuery(document).ready(function($) {
@@ -4628,6 +4526,436 @@ function func_widget()
         ));
 }
 add_action('init', 'func_widget');
+
+
+function func_tournament_players($atts) {
+    ob_start();
+
+    // Get all tournaments with match_type meta
+    $tournament_args = array(
+        'post_type' => 'sp_tournament',
+        'posts_per_page' => -1,
+        'meta_query' => array(
+            array(
+                'key' => 'match_type',
+                'compare' => 'EXISTS'
+            )
+        )
+    );
+
+    $tournaments = get_posts($tournament_args);
+
+    if (empty($tournaments)) {
+        return '<p>No tournaments found.</p>';
+    }
+
+    // Organize tournaments by match_type
+    $tournaments_by_type = array();
+    foreach ($tournaments as $tournament) {
+        $match_type = get_post_meta($tournament->ID, 'match_type', true);
+        if (!isset($tournaments_by_type[$match_type])) {
+            $tournaments_by_type[$match_type] = array();
+        }
+        $tournaments_by_type[$match_type][] = $tournament;
+    }
+
+    // Create container and tabs
+    echo '<div class="tournament-players-container">';
+    echo '<h3>Tournament Players</h3>';
+    
+    // Tab navigation
+    echo '<div class="match-type-tabs">';
+    echo '<ul class="tab-nav">';
+    foreach ($tournaments_by_type as $match_type => $type_tournaments) {
+        echo '<li><a href="#match-type-' . esc_attr($match_type) . '" data-type="' . esc_attr($match_type) . '">Type ' . esc_html($match_type) . '</a></li>';
+    }
+    echo '</ul>';
+
+    // Tab content
+    foreach ($tournaments_by_type as $match_type => $type_tournaments) {
+        echo '<div id="match-type-' . esc_attr($match_type) . '" class="tab-content">';
+        
+        // Get all teams from these tournaments
+        $team_ids = array();
+        foreach ($type_tournaments as $tournament) {
+            $tournament_teams = get_post_meta($tournament->ID, 'sp_team', false);
+            if (!empty($tournament_teams)) {
+                $team_ids = array_merge($team_ids, $tournament_teams);
+            }
+        }
+        
+        $team_ids = array_unique($team_ids);
+        
+        if (empty($team_ids)) {
+            echo '<p>No teams found in these tournaments.</p>';
+            continue;
+        }
+        
+        // Get all players from these teams with player_points
+        $player_args = array(
+            'post_type' => 'sp_player',
+            'posts_per_page' => -1,
+            'meta_query' => array(
+                'relation' => 'AND',
+                array(
+                    'key' => 'sp_team',
+                    'value' => $team_ids,
+                    'compare' => 'IN'
+                ),
+                array(
+                    'key' => 'player_points',
+                    'compare' => 'EXISTS'
+                )
+            ),
+            'orderby' => 'meta_value_num',
+            'meta_key' => 'player_points',
+            'order' => 'DESC'
+        );
+
+        $players = new WP_Query($player_args);
+
+        if ($players->have_posts()) {
+            echo '<div class="players-grid">';
+            
+            while ($players->have_posts()) {
+                $players->the_post();
+                $player_id = get_the_ID();
+                $player_name = get_the_title();
+                $player_image = get_the_post_thumbnail_url($player_id, 'medium');
+                $player_points = get_post_meta($player_id, 'player_points', true);
+                $player_team_id = get_post_meta($player_id, 'sp_team', true);
+                $player_team = $player_team_id ? get_the_title($player_team_id) : '—';
+
+                echo '<div class="player-card" data-player-id="' . esc_attr($player_id) . '">';
+                echo '<div class="player-image">';
+                if ($player_image) {
+                    echo '<img src="' . esc_url($player_image) . '" alt="' . esc_attr($player_name) . '">';
+                } else {
+                    echo '<div class="no-image">No Image</div>';
+                }
+                echo '</div>';
+                echo '<div class="player-info">';
+                echo '<h4>' . esc_html($player_name) . '</h4>';
+                echo '<p class="team">' . esc_html($player_team) . '</p>';
+                echo '<p class="points">Points: ' . esc_html($player_points ? $player_points : '0') . '</p>';
+                echo '</div>';
+                echo '</div>'; // .player-card
+            }
+            
+            echo '</div>'; // .players-grid
+        } else {
+            echo '<p>No players found in these tournament teams.</p>';
+        }
+        
+        wp_reset_postdata();
+        echo '</div>'; // .tab-content
+    }
+    
+    echo '</div>'; // .match-type-tabs
+    
+    // Player details modal
+    echo '<div id="player-modal" class="modal">';
+    echo '<div class="modal-content">';
+    echo '<span class="close-modal">&times;</span>';
+    echo '<div id="player-details"></div>';
+    echo '</div>';
+    echo '</div>';
+    
+    echo '</div>'; // .tournament-players-container
+
+    // Add styling
+    echo '
+    <style>
+        .tournament-players-container {
+            margin: 20px 0;
+            font-family: Arial, sans-serif;
+        }
+        .match-type-tabs {
+            margin-top: 20px;
+        }
+        .tab-nav {
+            display: flex;
+            list-style: none;
+            padding: 0;
+            margin: 0 0 20px 0;
+            border-bottom: 1px solid #ddd;
+        }
+        .tab-nav li {
+            margin-right: 10px;
+        }
+        .tab-nav a {
+            display: block;
+            padding: 10px 15px;
+            background: #f5f5f5;
+            color: #333;
+            text-decoration: none;
+            border: 1px solid #ddd;
+            border-bottom: none;
+            border-radius: 4px 4px 0 0;
+            transition: all 0.3s;
+        }
+        .tab-nav a:hover,
+        .tab-nav a.active {
+            background: #fff;
+            color: #0073aa;
+        }
+        .tab-content {
+            display: none;
+            padding: 15px 0;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .players-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        .player-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+        .player-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .player-image {
+            height: 180px;
+            background: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .player-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .no-image {
+            color: #999;
+        }
+        .player-info {
+            padding: 15px;
+        }
+        .player-info h4 {
+            margin: 0 0 5px 0;
+            font-size: 16px;
+        }
+        .player-info .team {
+            margin: 0 0 5px 0;
+            color: #666;
+            font-size: 14px;
+        }
+        .player-info .points {
+            margin: 0;
+            font-weight: bold;
+            color: #0073aa;
+        }
+        
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+        }
+        .modal-content {
+            background-color: #fff;
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 8px;
+            width: 80%;
+            max-width: 700px;
+            position: relative;
+        }
+        .close-modal {
+            position: absolute;
+            right: 20px;
+            top: 10px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        #player-details {
+            display: flex;
+            gap: 30px;
+        }
+        #player-details .player-image {
+            width: 250px;
+            height: 250px;
+            flex-shrink: 0;
+        }
+        #player-details .player-meta {
+            flex-grow: 1;
+        }
+        #player-details h3 {
+            margin-top: 0;
+            color: #333;
+        }
+        #player-details .meta-row {
+            margin-bottom: 10px;
+        }
+        #player-details .meta-label {
+            font-weight: bold;
+            display: inline-block;
+            width: 100px;
+        }
+        
+        @media (max-width: 768px) {
+            .players-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: 15px;
+            }
+            .player-image {
+                height: 150px;
+            }
+            #player-details {
+                flex-direction: column;
+            }
+            #player-details .player-image {
+                width: 100%;
+                margin-bottom: 20px;
+            }
+            .modal-content {
+                width: 90%;
+                margin: 10% auto;
+                padding: 20px;
+            }
+        }
+    </style>
+    ';
+    
+    // Add JavaScript for tabs and modal
+    echo '
+    <script>
+    jQuery(document).ready(function($) {
+        // Tab functionality
+        $(".match-type-tabs .tab-nav a").click(function(e) {
+            e.preventDefault();
+            var tabId = $(this).attr("href");
+            
+            // Hide all tab content
+            $(".tab-content").removeClass("active");
+            
+            // Deactivate all tab links
+            $(".tab-nav a").removeClass("active");
+            
+            // Show current tab content
+            $(tabId).addClass("active");
+            
+            // Activate current tab link
+            $(this).addClass("active");
+        });
+        
+        // Activate first tab by default
+        $(".tab-nav a:first").addClass("active");
+        $(".tab-content:first").addClass("active");
+        
+        // Player modal functionality
+        $(".player-card").click(function() {
+            var playerId = $(this).data("player-id");
+            
+            // Show loading
+            $("#player-details").html("<p>Loading player details...</p>");
+            $("#player-modal").show();
+            
+            // AJAX request to get player details
+            $.ajax({
+                url: "' . admin_url('admin-ajax.php') . '",
+                type: "POST",
+                data: {
+                    action: "get_player_details",
+                    player_id: playerId
+                },
+                success: function(response) {
+                    if (response.success) {
+                        $("#player-details").html(response.data);
+                    } else {
+                        $("#player-details").html("<p>Error loading player details.</p>");
+                    }
+                },
+                error: function() {
+                    $("#player-details").html("<p>Error loading player details.</p>");
+                }
+            });
+        });
+        
+        // Close modal
+        $(".close-modal").click(function() {
+            $("#player-modal").hide();
+        });
+        
+        // Close modal when clicking outside
+        $(window).click(function(e) {
+            if ($(e.target).is("#player-modal")) {
+                $("#player-modal").hide();
+            }
+        });
+    });
+    </script>
+    ';
+
+    return ob_get_clean();
+}
+add_shortcode('tournament_players', 'func_tournament_players');
+
+// AJAX handler for player details
+add_action('wp_ajax_get_player_details', 'get_player_details_callback');
+add_action('wp_ajax_nopriv_get_player_details', 'get_player_details_callback');
+
+function get_player_details_callback() {
+    $player_id = isset($_POST['player_id']) ? intval($_POST['player_id']) : 0;
+    
+    if (!$player_id) {
+        wp_send_json_error('Invalid player ID');
+    }
+    
+    $player = get_post($player_id);
+    if (!$player) {
+        wp_send_json_error('Player not found');
+    }
+    
+    $output = '';
+    
+    $player_name = $player->post_title;
+    $player_image = get_the_post_thumbnail_url($player_id, 'large');
+    $player_points = get_post_meta($player_id, 'player_points', true);
+    $player_team_id = get_post_meta($player_id, 'sp_team', true);
+    $player_team = $player_team_id ? get_the_title($player_team_id) : '—';
+    $player_position = get_post_meta($player_id, 'sp_position', true);
+    $player_bio = get_post_meta($player_id, 'player_bio', true);
+    
+    $output .= '<div class="player-image">';
+    if ($player_image) {
+        $output .= '<img src="' . esc_url($player_image) . '" alt="' . esc_attr($player_name) . '">';
+    } else {
+        $output .= '<div class="no-image">No Image Available</div>';
+    }
+    $output .= '</div>';
+    
+    $output .= '<div class="player-meta">';
+    $output .= '<h3>' . esc_html($player_name) . '</h3>';
+    
+    $output .= '<div class="meta-row"><span class="meta-label">Team:</span> ' . esc_html($player_team) . '</div>';
+    $output .= '<div class="meta-row"><span class="meta-label">Position:</span> ' . esc_html($player_position ? $player_position : '—') . '</div>';
+    $output .= '<div class="meta-row"><span class="meta-label">Points:</span> ' . esc_html($player_points ? $player_points : '0') . '</div>';
+    
+    if ($player_bio) {
+        $output .= '<div class="meta-row bio"><span class="meta-label">Bio:</span> ' . wp_kses_post($player_bio) . '</div>';
+    }
+    
+    $output .= '</div>';
+    
+    wp_send_json_success($output);
+}
+
 
 /*
  * Haris function code end

@@ -800,7 +800,7 @@ function render_news_posts($query, $shortcode_categories = array()) {
             $count++;
         }
     } else {
-        echo '<div class="no-posts-message">No posts found in this category.</div>';
+        echo '<div class="no-posts-message">No news found in this category.</div>';
     }
     
     wp_reset_postdata();
@@ -878,5 +878,215 @@ function load_category_posts() {
 }
 add_action('wp_ajax_load_category_posts', 'load_category_posts');
 add_action('wp_ajax_nopriv_load_category_posts', 'load_category_posts');
+
+// News Widget Function
+function func_news_widget() {
+    ob_start();
+
+    // Get all categories, including empty ones
+    $categories = get_terms(array(
+        'taxonomy' => 'news_category',
+        'hide_empty' => false
+    ));
+
+    echo '<div class="news-widget">';
+    echo '<h3 class="main-heading">News</h3>';
+    echo '<a href="/news" class="main-heading-link">News <img src="/wp-content/uploads/2025/05/chevron-right.svg"></a>';
+    
+    // Category Navigation
+    echo '<div class="news-nav">';
+    echo '<button class="news-nav-arrow prev" aria-label="Previous categories"><img src="/wp-content/uploads/2025/05/chevron-right.svg"></button>';
+    echo '<div class="news-nav-scroll">';
+    echo '<a href="#" class="news-nav-item active" data-category="0">All</a>';
+    if (!is_wp_error($categories)) {
+        foreach ($categories as $category) {
+            echo '<a href="#" class="news-nav-item" data-category="' . $category->term_id . '">' . $category->name . '</a>';
+        }
+    }
+    echo '</div>';
+    echo '<button class="news-nav-arrow next" aria-label="Next categories"><img src="/wp-content/uploads/2025/05/chevron-right.svg"></button>';
+    echo '</div>';
+
+    // News Content Area
+    echo '<div class="news-widget-content">';
+    echo '<h2 class="news-widget-heading">All</h2>';
+    echo '<div class="news-widget-loader" style="display: none;"></div>';
+    echo '<div class="news-widget-grid">';
+    
+    // Initial query for latest posts
+    $args = array(
+        'post_type' => 'newspost',
+        'posts_per_page' => 4,
+        'orderby' => 'date',
+        'order' => 'DESC'
+    );
+
+    $query = new WP_Query($args);
+    if ($query->have_posts()) {
+        render_news_widget_posts($query);
+    } else {
+        echo '<div class="no-posts-message">No news found</div>';
+    }
+    wp_reset_postdata();
+    echo '</div>'; // Close news-widget-grid
+    echo '<div class="news-widget-footer">';
+    echo '<a href="/news" class="news-widget-button">View All News</a>';
+    echo '<div class="sponser"><span>Sponsored by:</span><img src="/wp-content/uploads/2025/05/ahm.svg"></div>';
+    echo '</div>'; // Close news-widget-footer
+    echo '</div>'; // Close news-widget-content
+    echo '</div>'; // Close news-widget
+
+    // Add JavaScript
+    ?>
+    <script>
+    jQuery(document).ready(function($) {
+        // Initial load handling
+        $('.news-widget-loader').fadeIn(200);
+        $('.news-widget-grid').hide();
+        
+        // After a short delay, hide loader and show content
+        setTimeout(function() {
+            $('.news-widget-loader').fadeOut(200, function() {
+                $('.news-widget-grid').fadeIn(300);
+            });
+        }, 300);
+        // Handle navigation arrows
+        $('.news-nav-arrow').on('click', function() {
+            var $scroll = $(this).siblings('.news-nav-scroll');
+            var scrollAmount = 200;
+            
+            if ($(this).hasClass('prev')) {
+                $scroll.animate({ scrollLeft: '-=' + scrollAmount }, 300);
+            } else {
+                $scroll.animate({ scrollLeft: '+=' + scrollAmount }, 300);
+            }
+        });
+
+        // Update arrow visibility based on scroll position
+        $('.news-nav-scroll').each(function() {
+            var $scroll = $(this);
+            var $nav = $scroll.closest('.news-nav');
+            
+            function updateArrows() {
+                var scrollLeft = $scroll.scrollLeft();
+                var scrollWidth = $scroll[0].scrollWidth;
+                var visibleWidth = $scroll.width();
+                
+                $nav.find('.prev').toggleClass('hidden', scrollLeft <= 0);
+                $nav.find('.next').toggleClass('hidden', Math.ceil(scrollLeft + visibleWidth) >= scrollWidth);
+                
+                // Force recalculation after a short delay
+                setTimeout(function() {
+                    var scrollLeft = $scroll.scrollLeft();
+                    var scrollWidth = $scroll[0].scrollWidth;
+                    var visibleWidth = $scroll.width();
+                    $nav.find('.next').toggleClass('hidden', Math.ceil(scrollLeft + visibleWidth) >= scrollWidth);
+                }, 100);
+            }
+            
+            $scroll.on('scroll', updateArrows);
+            $(window).on('resize', updateArrows); // Update on window resize
+            setTimeout(updateArrows, 100); // Initial check with delay
+        });
+
+        // Handle category click
+        $('.news-nav-item').on('click', function(e) {
+            e.preventDefault();
+            var categoryId = $(this).data('category');
+            
+            // Update active state and heading
+            $('.news-nav-item').removeClass('active');
+            $(this).addClass('active');
+            var categoryName = $(this).text();
+            $(this).closest('.news-widget').find('.news-widget-heading').text(categoryName);
+            
+            // Show loader and hide content
+            var $targetWidget = $(this).closest('.news-widget').find('.news-widget-grid');
+            var $targetLoader = $(this).closest('.news-widget').find('.news-widget-loader');
+            
+            $targetWidget.fadeOut(200, function() {
+                $targetLoader.fadeIn(200);
+            });
+            
+            // Load posts via AJAX
+            $.ajax({
+                url: '<?php echo admin_url('admin-ajax.php'); ?>',
+                type: 'POST',
+                data: {
+                    action: 'load_widget_posts',
+                    category: categoryId,
+                    nonce: '<?php echo wp_create_nonce('news_widget_nonce'); ?>'
+                },
+                success: function(response) {
+                    $targetLoader.fadeOut(200, function() {
+                        $targetWidget.html(response).fadeIn(300);
+                    });
+                }
+            });
+        });
+    });
+    </script>
+    <?php
+
+    return ob_get_clean();
+}
+add_shortcode('news_widget', 'func_news_widget');
+
+// Helper function to render news widget posts
+function render_news_widget_posts($query) {
+    while ($query->have_posts()) {
+        $query->the_post();
+        echo '<div class="news-widget-item">';
+        echo '<a href="' . get_permalink() . '" class="news-widget-link">';
+        echo '<div class="news-widget-info">';
+        echo '<span class="news-widget-date">' . get_the_date('F j, Y') . '</span>';
+        echo '<h3>' . get_the_title() . '</h3>';
+        // Get post categories
+        $categories = get_the_terms(get_the_ID(), 'news_category');
+        if ($categories && !is_wp_error($categories)) {
+            echo '<span class="news-widget-category">' . esc_html($categories[0]->name) . '</span>';
+        }
+        echo '</div>';
+        echo '</a>';
+        echo '</div>';
+    }
+}
+
+// AJAX handler for widget posts
+function load_widget_posts() {
+    check_ajax_referer('news_widget_nonce', 'nonce');
+    
+    $category_id = isset($_POST['category']) ? intval($_POST['category']) : 0;
+    
+    $args = array(
+        'post_type' => 'newspost',
+        'posts_per_page' => 4,
+        'orderby' => 'date',
+        'order' => 'DESC',
+        'post_status' => 'publish'
+    );
+    
+    if ($category_id > 0) {
+        $args['tax_query'] = array(
+            array(
+                'taxonomy' => 'news_category',
+                'field' => 'term_id',
+                'terms' => $category_id
+            )
+        );
+    }
+    
+    $query = new WP_Query($args);
+    if ($query->have_posts()) {
+        render_news_widget_posts($query);
+    } else {
+        echo '<div class="no-posts-message">No news found</div>';
+    }
+    wp_reset_postdata();
+    
+    die();
+}
+add_action('wp_ajax_load_widget_posts', 'load_widget_posts');
+add_action('wp_ajax_nopriv_load_widget_posts', 'load_widget_posts');
 
 
