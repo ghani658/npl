@@ -2354,3 +2354,34 @@ body .news-image img {
 .sidebarWidget .league-season-header {
   margin: 0px 0 20px;
 }
+
+
+.search-form {
+  display: none;
+}
+.search-form.active {
+  display: block;
+}
+
+.search-btn {
+    width: 53px;
+    height: 53px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
+    background: #F2F2F2;
+    cursor: pointer;
+    padding: 0;
+}
+
+.search-btn .e-con-inner {
+  padding: 0;
+}
+.search-btn .elementor-icon-wrapper {
+  height: 18.5px
+}
+.search-btn .elementor-icon-wrapper svg {
+  fill: #999999;
+  height: 18.5px;
+} 
