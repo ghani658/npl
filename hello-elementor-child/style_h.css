@@ -187,7 +187,6 @@ table.team-players-table td img {
   .rank_labels_mobile {
     display: block;
   }
-
   .league-season-header .league-name,
   .league-season-header .season-name,
   .league-season-header .sponsor-name {
@@ -320,9 +319,6 @@ table.team-players-table td img {
 .team_overview_r {
   max-width: 68%;
 }
-.team_overview_r .sp-tab-group{
-	display: none !important;
-}
 .team_overview_l h4 {
   font-size: 22px;
   font-weight: 700;
@@ -452,6 +448,11 @@ table tbody {
   border-bottom: 1px solid #ddd !important;
 }
 
+.team-players-table tr:hover td.hover_out, .team-players-table tr td.hover_out{
+  background-color: transparent !important;
+  padding: 10px 0;
+}
+
 .player_info_venue {
   margin: 40px 0px;
 }
@@ -511,12 +512,23 @@ table tbody {
   align-items: center;
   justify-content: space-between;
 }
+
 .team_heads .team_heads_l {
   width: 60%;
 }
 .team_heads .team_heads_r {
   width: 40%;
 }
+
+.tournemanet_main_head .team_heads .team_heads_l {
+  width: 75%;
+  align-items: center;
+}
+.tournemanet_main_head .team_heads .team_heads_r {
+  width: 25%;
+}
+
+
 .team_heads .team_heads_l {
   width: 60%;
   display: flex;
@@ -564,6 +576,12 @@ table tbody {
   color: #000;
   margin-bottom: 20px;
 }
+
+.tournemanet_main_head .team_heads_l .team_details h6{
+  display: flex;
+  gap: 20px;
+}
+
 .team_details_btns {
   display: flex;
   gap: 15px;
@@ -713,12 +731,6 @@ table tbody {
   transform: translateY(-50%);
 }
 
-.team-leaderboard-container1 .state-tab, .league_teams_section .tabs .tab-btn {
-	background-color: transparent !important;
-    border: 1px solid #bbbbbb !important;
-    color: #000 !important;
-}
-
 .league_teams_section .tabs, .team-leaderboard-container1 .state-tabs .state-tab {
   border: none;
 }
@@ -730,10 +742,9 @@ table tbody {
 .league_teams_section .tabs .tab-btn.active,
 .league_teams_section .tabs .tab-btn:hover,
  .team-leaderboard-container1 .state-tabs .state-tab.active,
- .team-leaderboard-container1 .state-tabs .state-tab:hover,
-.league_teams_section .tabs .tab-btn:hover, .league_teams_section .tabs .tab-btn.active {
-  background-color: #1d7a5c !important;
-  color: #fff !important;
+ .team-leaderboard-container1 .state-tabs .state-tab:hover {
+  background-color: #1d7a5c;
+  color: #fff;
 }
 
 .league_tournament-item ul {
@@ -901,11 +912,10 @@ table tbody {
   width: 100%;
 }
 .league_overview_inner_r ul li {
-	font-size: 15px;
-	font-weight: 400;
-	line-height: 24px;
-	color: #666;
-	margin-right: 5px;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 24px;
+  color: #666;
 }
 .league_overview_inner_r a,
 .league_overview_inner_r a:hover {
@@ -919,7 +929,7 @@ table tbody {
   margin-top: 0px;
   margin-bottom: 20px;
   display: block;
-  width: auto;
+  width: 160px;
   text-align: center;
 }
 .league_overview_inner_r h4 {
@@ -1587,6 +1597,7 @@ table.team-leaderboard  .team-info {
 
 .pre_tour_upcoming_event{
   overflow: hidden;
+	display: block;
 }
 .pre_tour_upcoming_event ul {
   position: relative;
@@ -1730,7 +1741,8 @@ body .single-event h2 {
 }
 
 
-/* Show case styling */
+
+/*  */
 .showcase-modal {
   display: none;
   position: fixed;
@@ -1742,6 +1754,7 @@ body .single-event h2 {
   overflow: auto;
   background-color: rgba(0, 0, 0, 1);
 }
+
 .showcase-content {
   position: relative;
   margin: auto;
@@ -1761,6 +1774,7 @@ body .single-event h2 {
   height: 55vh !important;
   object-fit: contain;
   position: relative;
+	margin-bottom: 20px;
 }
 .showcase-arrows #prev-arrow{
   position: absolute;
@@ -1788,6 +1802,9 @@ body .single-event h2 {
   margin-top: 10px;
   height: 20vh;
   justify-content: center;
+  width: 80%;
+  margin: auto;
+  overflow-x: scroll;
 }
 
 .showcase-thumbnails img {
@@ -1796,9 +1813,11 @@ body .single-event h2 {
   max-width: 60px;
   height: auto;
 }
+
 .showcase-thumbnails img.active {
   border-color: #007bff;
 }
+
 .arrow {
   cursor: pointer;
   font-size: 24px;
@@ -1826,6 +1845,16 @@ body .single-event h2 {
   line-height: 28px;
   margin-bottom: 20px;
   color: #fff !important;
+}
+.matches-container .match tr td:first-child, .matches-container .match tr th:first-child,
+.matches-container .match tr td:nth-child(3), .matches-container .match tr th:nth-child(3){
+  width: 10%
+}
+.matches-container .match tr td:last-child, .matches-container .match tr th:last-child{
+  width: 40%;
+}
+.matches-container .match tr td, .matches-container .match tr th{
+  width: 20%;
 }
 
 
