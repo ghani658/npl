@@ -3,7 +3,7 @@
 /**
  * The template for displaying all pages
  * 
- * Template Name: League template
+ * Template Name: Pre Tournament template
  *
  * This is the template that displays all pages by default.
  * Note that this is the WordPress construct of pages
@@ -24,12 +24,17 @@ get_header(); ?>
     while (have_posts()) :
         the_post();
         the_content();
-        //    echo add_shortcode('[league_tabs league="npl"]');
+
 
         get_template_part('template-parts/content', 'page');
     endwhile; // End of the loop.
     ?>
 </main>
+
+
+
+
+
 
 
 

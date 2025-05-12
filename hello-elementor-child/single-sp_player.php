@@ -89,7 +89,7 @@ while (have_posts()) : the_post();
 							<h1 class="page_title_player_sigle">
 								<?php echo esc_html(wp_strip_all_tags($post_title)); ?>
 							</h1>
-							<table class="team-players-table">
+							<table>
 								<tr>
 									<td>Team Number</td>
 									<td><?php echo  esc_html($team_number);?></td>

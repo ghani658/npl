@@ -9,6 +9,8 @@ add_action( 'wp_enqueue_scripts', 'hello_elementor_child_style' );
 				function hello_elementor_child_style() {
 					wp_enqueue_style( 'parent-style', get_template_directory_uri() . '/style.css' );
 					wp_enqueue_style( 'child-style', get_stylesheet_directory_uri() . '/style.css', array('parent-style') );
+					wp_enqueue_style( 'child-style2', get_stylesheet_directory_uri() . '/style_h.css', array('parent-style') );
+	
 				}
 
 /**
@@ -164,7 +166,7 @@ function display_matches_posts() {
                 $bg_image = wp_get_attachment_image_src(get_post_thumbnail_id(), 'full');
                 $bg_image = $bg_image[0];
             }
-            echo '<a href="' . esc_url(get_permalink()) . '" class="event-link">';
+            echo '<a href="' . esc_url(site_url('/tournaments-pre-event-states/')) . '" class="event-link">';
             $event_date = get_field('event_date');
             $current_date = date('Y-m-d');
             

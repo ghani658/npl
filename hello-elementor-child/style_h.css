@@ -405,6 +405,7 @@ table.team-players-table td img {
 .event-table thead tr th {
   font-size: 12px;
   color: #999;
+  letter-spacing: -0.36px;
 }
 .team-players-table th,
 .team-players-table td,
@@ -495,6 +496,7 @@ table tbody {
   padding: 15px 10px 15px;
   margin: 0 3px;
   cursor: pointer;
+  letter-spacing: -0.72px;
 }
 .teamm_header .tabs button.active,
 .teamm_header .tabs button:hover,
@@ -554,6 +556,7 @@ table tbody {
   font-weight: 600;
   color: #000;
   margin: 0px 0px 10px;
+  letter-spacing: 0.38px;
 }
 .team_heads_l .team_details h5 span {
   background-color: #1d7a5c;
@@ -568,6 +571,7 @@ table tbody {
   line-height: 49px;
   font-weight: 600;
   margin: 0;
+  letter-spacing: -2.82px;
 }
 .team_heads_l .team_details h6 {
   font-size: 18px;
@@ -580,6 +584,7 @@ table tbody {
 .tournemanet_main_head .team_heads_l .team_details h6{
   display: flex;
   gap: 20px;
+  color: #666666;
 }
 
 .team_details_btns {
@@ -599,6 +604,7 @@ table tbody {
   padding: 10px 25px;
   color: #000;
   border-radius: 30px;
+  letter-spacing: -0.32px;
 }
 .team_details_btns li a:hover {
   border: 1px solid #2bb673;
@@ -635,6 +641,14 @@ table tbody {
   display: block;
   margin-bottom: 20px;
 }
+.post_data_team .post_right .post-item img {
+  width: 154px;
+  height: 100%;
+  object-fit: cover;
+}
+.post_data_team .post-item .post-content {
+  flex: 1;
+}
 .post_data_team .post-item h3 a {
   font-size: 40px;
   line-height: 44px;
@@ -642,7 +656,15 @@ table tbody {
   margin: 10px 0px 30px;
   opacity: 1;
   color: #000;
-  letter-spacing: -2px;
+  letter-spacing: -2.82px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.post_data_team .post-item h3 {
+  margin-bottom: 0;
 }
 .post_data_team .post-item .post_duration_ago {
   font-size: 18px;
@@ -704,6 +726,13 @@ table tbody {
 
 .league_content .panel {
   display: none;
+}
+
+.league_content .panel h3.tab-title {
+  font-size: 46px;
+  font-weight: 700;
+  letter-spacing: -2.30px;
+  margin-bottom: 40px;
 }
 
 .league_content .panel.active {
@@ -780,6 +809,7 @@ table tbody {
   font-weight: 600;
   color: #000;
   margin: 0;
+  letter-spacing: -0.96px;
 }
 
 /*  */
@@ -805,6 +835,7 @@ table tbody {
   width: 100%;
   text-align: left;
   cursor: pointer;
+  letter-spacing: -1.50px;
 }
 .faqs_accordion_item .accordion-header .accordion-button.open {
   color: #000;
@@ -843,11 +874,15 @@ table tbody {
 .faqs_accordion_item .cont_faq_r {
   max-width: 65%;
   width: 100%;
+  font-size: 15px;
+  color: #666666;
+  letter-spacing: 0.45px;
 }
 .faqs_accordion_item .cont_faq_r h3 {
   font-size: 18px;
   line-height: 24px;
   font-weight: 700;
+  letter-spacing: -0.54px;
 }
 .faqs_accordion_item .cont_faq_r p {
   font-size: 18px;
@@ -858,10 +893,11 @@ table tbody {
 .main_league_overview .league_overview_sec > h2 {
   font-size: 29px;
   line-height: 29px;
-  font-weight: 600px;
+  font-weight: 600;
   margin-bottom: 20px;
   padding-bottom: 20px;
   border-bottom: 2px solid #000;
+  letter-spacing: -1.23px;
 }
 
 .league_overview_inner {
@@ -887,12 +923,16 @@ table tbody {
   font-size: 47px;
   font-weight: 700;
   line-height: 49px;
+  letter-spacing: -2.82px;
+  margin: 0;
+  padding: 20px;
 }
 
 .league_overview_inner_r h4 {
   font-size: 31px;
   font-weight: 600;
   line-height: 35px;
+  letter-spacing: -1px;
 }
 .league_overview_inner_r h5 {
   font-size: 24px;
@@ -904,6 +944,7 @@ table tbody {
   font-weight: 400;
   line-height: 24px;
   color: #666;
+  letter-spacing: -0.45px;
 }
 .league_overview_inner_r ul {
   margin: 0px 30px 20px;
@@ -917,7 +958,20 @@ table tbody {
   line-height: 24px;
   color: #666;
 }
-.league_overview_inner_r a,
+.league_overview_inner_r a{
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 700;
+  color: #000;
+  padding: 10px 30px;
+  border-radius: 30px;
+  margin-top: 0px;
+  margin-bottom: 20px;
+  display: block;
+  text-align: center;
+  border: 2px solid #1d7a5c;
+  letter-spacing: -0.48px;
+}
 .league_overview_inner_r a:hover {
   font-size: 16px;
   line-height: 24px;
@@ -929,8 +983,8 @@ table tbody {
   margin-top: 0px;
   margin-bottom: 20px;
   display: block;
-  width: 160px;
   text-align: center;
+  border-color: transparent;
 }
 .league_overview_inner_r h4 {
   font-size: 24px;
@@ -966,14 +1020,16 @@ table tbody {
 .pre_league_news_blog .post_right .post-item {
   display: flex;
   gap: 4%;
+  margin-bottom: 10px;
 }
 .pre_league_news_blog .post-item .post-content .post_duration_ago {
   font-size: 18px;
   line-height: 24px;
 }
-.pre_league_news_blog .post-item .post-content h3 a {
+.pre_league_news_blog .post_right .post-item .post-content h3 a {
   font-size: 31px;
   line-height: 35px;
+  letter-spacing: -1.86px;
 }
 .pre_league_news_blog .post-item .post-content .post-categories {
   display: none;
@@ -1196,11 +1252,12 @@ table tbody {
 }
 
 .pre_league_key_dates_items h2 {
-  font-size: 28px;
+  font-size: 32px;
   font-weight: 600;
   line-height: 1.3;
   color: #000;
   margin-bottom: 30px;
+  letter-spacing: -0.96px;
 }
 
 .pre_league_key_dates_items h5 {
@@ -1209,6 +1266,7 @@ table tbody {
   line-height: 1.3;
   color: #b7b7b7;
   text-transform: uppercase;
+  letter-spacing: -0.72px;
 }
 
 .replays_data_videos {
@@ -1510,20 +1568,24 @@ table.team-leaderboard  .team-info {
 .pre_tour_overview .league_overview_sec{
   margin-bottom: 30px;
 }
-.pre_tour_overview .league_overview_sec h2{
-  letter-spacing: -1px;
-}
+/* .pre_tour_overview .league_overview_sec h2{
+  letter-spacing: -2.82px;
+  margin: 0;
+  padding: 20px;
+} */
 .pre_tour_overview .league_overview_inner_r p, .pre_tour_overview .league_overview_inner_r ol li{
   font-size: 15px;
   line-height: 24px;
   font-weight: 400;
   color: #666;
+  letter-spacing: -0.45px;
 }
 .pre_tour_overview .league_overview_sec h3{
     font-size: 31px;
     line-height: 35px;
     font-weight: 600;
     color: #000;
+    letter-spacing: -1.86px;
 }
 .pre_tour_overview .league_overview_sec ul{
   margin: 0;
@@ -1571,7 +1633,7 @@ table.team-leaderboard  .team-info {
   font-size: 47px;
   line-height: 49px;
   color: #000;
-  letter-spacing: -2px;
+  letter-spacing: -2.82px;
 }
 .pre_tour_about_sec .league_venue_inner_r ul{
   margin: 0;
@@ -1592,6 +1654,7 @@ table.team-leaderboard  .team-info {
   font-weight: 700;
   line-height: 28px;
   color: #000;
+  letter-spacing: -0.60px;
 }
 
 
