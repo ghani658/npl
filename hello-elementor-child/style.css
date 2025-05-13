@@ -872,6 +872,8 @@ body .news-image img {
     display: flex;
     flex-direction: column;
     gap: 22px;
+    overflow: auto;
+    max-height: 62vh;
 }
 
 
@@ -891,6 +893,7 @@ body .news-image img {
     font-size: 16px;
     font-weight: 500;
     margin-bottom: 10px;
+    text-transform: uppercase;
 }
 
 .news-widget-info h3 {
@@ -911,6 +914,7 @@ body .news-image img {
   color: #000;
   font-size: 16px;
   font-weight: 500;
+  text-transform: uppercase;
 }
 
 .news-widget-footer {
@@ -941,6 +945,12 @@ body .news-image img {
     font-size: 13px;
     font-weight: 700;
     color: #000;
+}
+
+@media (max-width: 1600px) {
+   .news-widget-grid {
+    max-height: 52vh;
+   }
 }
 
 @media (max-width: 768px) {
@@ -996,6 +1006,15 @@ body .news-image img {
     width: 100%;
     scroll-snap-align: start;
   }
+  .league-season-header .league-name, .league-season-header .season-name, .league-season-header .sponsor-name {
+   left: 0 !important;
+   }
+   .leaderboard-sidebar .leaderboard-nav .leaderboard-nav-item {
+      padding: 0px 0px 9px !important;
+   }
+   .news-info h3 {
+      height: auto;
+   }
 }
 
 .sidebarWidget .league-season-header {

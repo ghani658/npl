@@ -1764,7 +1764,7 @@ function func_league_overview()
             </div>
         </div>
 
-        <div class="league_overview_sec league_matches_sec">
+        <!-- <div class="league_overview_sec league_matches_sec">
             <h2>Partners & Sponsors</h2>
             <div class="league_overview_inner league_matches_inner">
 
@@ -1772,7 +1772,7 @@ function func_league_overview()
                     <?php echo the_field('partners_sponsors'); ?>
                 </div>
             </div>
-        </div>
+        </div> -->
 
     </div>
     <?php

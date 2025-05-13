@@ -672,7 +672,7 @@ table tbody {
   font-weight: 500;
   margin: 0;
   opacity: 1;
-  letter-spacing: -2px;
+  letter-spacing: -0.54px;
 }
 .post_data_team .post-item .post-categories {
   font-size: 18px;
@@ -891,12 +891,12 @@ table tbody {
 }
 
 .main_league_overview .league_overview_sec > h2 {
-  font-size: 29px;
   line-height: 29px;
-  font-weight: 600;
   margin-bottom: 20px;
   padding-bottom: 20px;
   border-bottom: 2px solid #000;
+  font-size: 1.5rem;
+  font-weight: 700;
   letter-spacing: -1.23px;
 }
 
@@ -962,29 +962,21 @@ table tbody {
   font-size: 16px;
   line-height: 24px;
   font-weight: 700;
-  color: #000;
-  padding: 10px 30px;
-  border-radius: 30px;
-  margin-top: 0px;
-  margin-bottom: 20px;
-  display: block;
-  text-align: center;
-  border: 2px solid #1d7a5c;
-  letter-spacing: -0.48px;
-}
-.league_overview_inner_r a:hover {
-  font-size: 16px;
-  line-height: 24px;
-  font-weight: 700;
   background-color: #1d7a5c;
-  color: #fff;
+  color: #fff !important;
   padding: 10px 30px;
   border-radius: 30px;
   margin-top: 0px;
   margin-bottom: 20px;
-  display: block;
   text-align: center;
-  border-color: transparent;
+  letter-spacing: -0.48px;
+  border: 2px solid transparent;
+}
+.league_overview_inner_r ul li:nth-child(2) a {
+  background-color: transparent;
+  color: #000 !important;
+  border-color: #1d7a5c;
+  
 }
 .league_overview_inner_r h4 {
   font-size: 24px;
@@ -1115,10 +1107,11 @@ table tbody {
   margin-bottom: 20px;
 }
 .pre_league_location_items > h3 {
-  font-size: 28px;
+  font-size: 32px;
   font-weight: 600;
   line-height: 36px;
   color: #000;
+  letter-spacing: -0.96px;
 }
 .pre_league_location_items_sec1 h3,
 .pre_league_location_items_sec2 h3 {
@@ -1126,6 +1119,7 @@ table tbody {
   font-size: 20px;
   line-height: 135%;
   color: #000;
+  text-transform: uppercase;
 }
 .pre_league_location_items_sec1 h4 {
   font-size: 15px;
@@ -1142,6 +1136,7 @@ table tbody {
   padding-top: 10px;
   border-top: 1px solid #ced6eb;
   margin-top: 10px;
+  letter-spacing: -0.48px;
 }
 
 .items2_inner1 {
@@ -1920,6 +1915,142 @@ body .single-event h2 {
   width: 20%;
 }
 
+.league_content .panel.schedule {
+  margin-bottom: 70px;
+}
+@media (max-width: 768px) {
+  .team_heads {
+    flex-direction: column;
+    align-items: self-start;
+  }
+  .tournemanet_main_head .team_heads_l .team_details h6 {
+    gap: 0;
+    flex-direction: column;
+    line-height: 20px;
+  }
+  .teamm_header .tabs, .league_content .tabs {
+    white-space: nowrap;
+    overflow-x: auto;
+  }
+  .team_heads_l .team_details h2 {
+    margin: 0;
+    letter-spacing: 0;
+    font-size: 24px;
+  }
+  .team_heads_l .team_details h5 {
+    font-size: 14px;
+  }
+  .team_heads_l .team_details h5 span {
+    font-size: 12px;
+  }
+  .team_heads .team_heads_r {
+    display: none;
+  }
+  .tournemanet_main_head .team_heads .team_heads_l {
+    width: 100%;
+    align-items: flex-start;
+  }
+  .team_details_btns li a {
+    width: 100%;
+    text-align: center;
+    letter-spacing: 0;
+    font-size: 14px;
+    display: block;
+    padding: 10px 19px;
+  }
+  .teamm_header .tabs button, .league_content .tabs .tab {
+    letter-spacing: 0;
+    font-size: 14px;
+    padding: 15px 0px 15px;
+  }
+  .league_content .panel h3.tab-title {
+    font-size: 24px;
+    font-weight: 600;
+    letter-spacing: 0;
+  }
+.league_overview_inner {
+    gap: 20px;
+    flex-direction: column;
+}
+.league_overview_inner_l {
+  max-width: 100%;
+}
+.league_overview_inner_l h2 {
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 100%;
+  letter-spacing: 0;
+  margin: 0;
+  padding: 0;
+}
+.league_overview_inner_r {
+  max-width: 100%;
+}
+.league_overview_inner_r a {
+  font-size: 14px;
+  font-weight: 500;
+  padding: 4px 30px;
+  letter-spacing:0;
+  margin-bottom: 0;
+}
+.main_league_overview .league_overview_sec > h2 {
+  font-size: 24px;
+  letter-spacing: 0;
+  margin: 0;
+}
+.league_overview_inner_r ol {
+  padding-left: 23px;
+}
+.pre_tour_about_sec .league_venue_inner_r h3 {
+  font-size: 32px;
+  letter-spacing: 0;
+}
+.price_poll_pre_tour tr td {
+  font-size: 14px;
+  letter-spacing: 0;
+}
+.team-players-table, .event-table {
+  margin: 0 0 70px;
+}
+.faqs_accordion_item .cont_faq_r {
+  max-width: 100%;
+}
+.faqs_accordion_item .accordion-header .accordion-button {
+  letter-spacing: 0;
+}
+.faqs_accordion_item .cont_faq_r h3 {
+  letter-spacing: 0;
+}
+.pre_tour_upcoming_event ul {
+  padding: 1.25rem 0;
+}
+.pre_tour_upcoming_event ul li {
+  flex: 0 0 72%;
+}
+.team_heads .team_heads_l {
+width: 100%;
+}
+.league_overview_inner_r ul {
+  margin: 0px 0px 20px;
+  padding-left: 15px;
+}
+.league_tournament-item ul, .pre_league_location_inner {
+  flex-direction: column;
+}
+.league_tournament-item ul li, .pre_league_location_items {
+  max-width: 100%;
+}
+}
+@media (max-width: 425px) {
+  .team_details_btns {
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .pre_tour_upcoming_event ul li {
+    flex: 0 0 90%;
+  }
+}
 
 
 
