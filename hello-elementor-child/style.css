@@ -837,7 +837,6 @@ body .news-image img {
     scrollbar-width: none; /* Firefox */
     -ms-overflow-style: none; /* IE and Edge */
     flex: 1;
-    letter-spacing: -0.54px;
 }
 
 .news-nav-scroll a {
@@ -1011,7 +1010,7 @@ body .news-image img {
   display: block;
 }
 
-.search-btn {
+.search-btn a {
     width: 53px;
     height: 53px;
     display: flex;
@@ -1027,7 +1026,7 @@ body .news-image img {
   padding: 0;
 }
 .search-btn .elementor-icon-wrapper {
-  height: 18.5px
+  height: auto;
 }
 .search-btn .elementor-icon-wrapper svg {
   fill: #999999;
