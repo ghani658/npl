@@ -782,10 +782,14 @@ function render_news_posts($query, $shortcode_categories = array()) {
 
             echo '<div class="news-item' . ($count < 2 ? ' featured' : '') . '">';
             echo '<a href="' . get_permalink() . '" class="news-link">';
-            if ($count < 6 && has_post_thumbnail()) {
-                echo '<div class="news-image">';
-                echo get_the_post_thumbnail(null, 'full');
-                echo '</div>';
+            if (has_post_thumbnail()) {
+                // Check if it's mobile and first post, or desktop and first 6 posts
+                $is_mobile = isset($_SERVER['HTTP_USER_AGENT']) && preg_match('/(Mobile|Android|iPhone|iPad|Windows Phone)/i', $_SERVER['HTTP_USER_AGENT']);
+                if (($is_mobile && $count < 1) || (!$is_mobile && $count < 6)) {
+                    echo '<div class="news-image">';
+                    echo get_the_post_thumbnail(null, 'full');
+                    echo '</div>';
+                }
             }
             echo '<div class="news-content">';
             echo '<div class="news-info">';

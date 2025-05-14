@@ -555,6 +555,18 @@ while (have_posts()) : the_post();
 		</div>
 	</div>
 
+<style>
+
+	.single-sp_team .team_overview .team_overview_r .sp-tab-group,
+	.single-sp_team div#sp-tab-content-events,
+	.single-sp_team ul.sp-tab-menu,
+	.single-sp_team .sp-header.sp-header-loaded,
+	.single-sp_team .sp-header {
+		display: none;
+	}
+	
+</style>
+
 	<script>
 		// function filterEvents() {
 		// 	const form = document.getElementById('eventFilterForm');

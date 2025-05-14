@@ -355,8 +355,12 @@ table.team-players-table td img {
   font-weight: 400;
   line-height: 24px;
 }
-.team_overview_r .sp-tab-group{
-	display: none !important;
+.single-sp_team .team_overview .team_overview_r .sp-tab-group,
+.single-sp_team div#sp-tab-content-events,
+.single-sp_team ul.sp-tab-menu,
+.single-sp_team .sp-header.sp-header-loaded,
+.single-sp_team .sp-header {
+    display: none;
 }
 
 .player_head h2 {
@@ -2488,7 +2492,7 @@ ul.tab-navigation.round-tabs .tab-item.active {
 .league_overview_inner_r a {
   font-size: 14px;
   font-weight: 500;
-  padding: 4px 30px;
+  padding: 8px 30px;
   letter-spacing:0;
   margin-bottom: 0;
 }
@@ -2564,6 +2568,21 @@ width: 100%;
   }
   .blog_replay_main .post_data_team .post-item {
     max-width: 100%;
+  }
+  .team_main_head {
+    padding-bottom: 25px;
+  }
+  .team_details_btns {
+    width: 95vw;
+    position: absolute;
+    left: -20px;
+    padding: 0 20px;
+  }
+  .team_details_btns li {
+    flex: 1;
+  }
+  .team_details_btns li a {
+    padding: 3px 19px;
   }
 }
 @media (max-width: 425px) {

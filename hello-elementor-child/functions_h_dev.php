@@ -2788,7 +2788,6 @@ add_shortcode('leader_board', 'home_leader_board');
                      }
                  }
  
-                 // If all matches have the same venue, display it once
                  $venue_display = !empty($round_venues) ? implode(', ', $round_venues) : 'Venue not specified';
  
                  echo '<div class="rounds_wise_categories" data-round_cate="' . esc_attr($round_slug) . '">';
@@ -3262,6 +3261,9 @@ add_shortcode('leader_board', 'home_leader_board');
                  if (!isset($matches_by_round[$round_name])) {
                      $matches_by_round[$round_name] = [];
                  }
+
+                 
+
  
                  $matches_by_round[$round_name][] = [
                      'id' => get_the_ID(),
@@ -3277,7 +3279,8 @@ add_shortcode('leader_board', 'home_leader_board');
                      'player2' => maybe_unserialize(get_post_meta(get_the_ID(), 'e_select_player2', true)),
                      'tournament_assoc' => $tournament_associate_name,
                      'rounds' => $rounds,
-                     'raw_date' => $match_date // Added for proper date sorting
+                     'raw_date' => $match_date,
+                     'state' => maybe_unserialize(get_post_meta(get_the_ID(), 'state', true)),
                  ];
              }
  
@@ -3290,6 +3293,10 @@ add_shortcode('leader_board', 'home_leader_board');
  
              // Display matches by round in accordion
              foreach ($matches_by_round as $round_name => $matches) {
+
+                
+
+
                  $round_slug = sanitize_title($round_name);
  
                  $round_venues = [];
@@ -3303,7 +3310,6 @@ add_shortcode('leader_board', 'home_leader_board');
                      }
                  }
  
-                 // If all matches have the same venue, display it once
                  $venue_display = !empty($round_venues) ? implode(', ', $round_venues) : 'Venue not specified';
  
                  echo '<div class="rounds_wise_categories" data-round_cate="' . esc_attr($round_slug) . '">';
@@ -3335,14 +3341,20 @@ add_shortcode('leader_board', 'home_leader_board');
                  krsort($matches_by_date);
  
                  foreach ($matches_by_date as $date => $date_matches) {
+
+                    // echo "<pre>";
+                    // print_r($date_matches);
+                    // echo "</pre>";
+
                      echo '<div class="main_live_tourna match" 
                              data-date="' . htmlspecialchars($date, ENT_QUOTES, 'UTF-8') . '"
-                             data-tournament="' . htmlspecialchars($date_matches[0]['tournament_assoc'], ENT_QUOTES, 'UTF-8') . '"
-                             data-venue="' . htmlspecialchars(!empty($date_matches[0]['venue'][0]) ? $date_matches[0]['venue'][0] : '', ENT_QUOTES, 'UTF-8') . '"
-                             data-season="' . htmlspecialchars(!empty($date_matches[0]['season'][0]) ? $date_matches[0]['season'][0] : '', ENT_QUOTES, 'UTF-8') . '"
-                             data-rounds="' . htmlspecialchars($round_slug, ENT_QUOTES, 'UTF-8') . '"
-                             data-title="' . htmlspecialchars($date_matches[0]['title'], ENT_QUOTES, 'UTF-8') . '"
-                             data-state="' . esc_attr($state) . '" 
+                            data-tournament="' . htmlspecialchars($date_matches[0]['tournament_assoc'], ENT_QUOTES, 'UTF-8') . '"
+                            data-venue="' . htmlspecialchars(!empty($date_matches[0]['venue'][0]) ? $date_matches[0]['venue'][0] : '', ENT_QUOTES, 'UTF-8') . '"
+                            data-season="' . htmlspecialchars(!empty($date_matches[0]['season'][0]) ? $date_matches[0]['season'][0] : '', ENT_QUOTES, 'UTF-8') . '"
+                            data-rounds="' . htmlspecialchars($round_slug, ENT_QUOTES, 'UTF-8') . '"
+                            data-title="' . htmlspecialchars($date_matches[0]['title'], ENT_QUOTES, 'UTF-8') . '"
+                            
+                            data-state = "ACT"
                              >';
  
                      echo '<h2 class="heading_underline">' . esc_html($date) . '</h2>';
@@ -3368,13 +3380,14 @@ add_shortcode('leader_board', 'home_leader_board');
                          echo '<h3 class="turna_time_s">' . esc_html($match['time']) . '</h3>';
  
                          echo '<table class="team-players-table"  
-                             data-date="' . htmlspecialchars($date, ENT_QUOTES, 'UTF-8') . '"
-                             data-tournament="' . htmlspecialchars($date_matches[0]['tournament_assoc'], ENT_QUOTES, 'UTF-8') . '"
-                             data-venue="' . htmlspecialchars(!empty($date_matches[0]['venue'][0]) ? $date_matches[0]['venue'][0] : '', ENT_QUOTES, 'UTF-8') . '"
-                             data-season="' . htmlspecialchars(!empty($date_matches[0]['season'][0]) ? $date_matches[0]['season'][0] : '', ENT_QUOTES, 'UTF-8') . '"
-                             data-rounds="' . htmlspecialchars($round_slug, ENT_QUOTES, 'UTF-8') . '"
-                             data-title="' . htmlspecialchars($date_matches[0]['title'], ENT_QUOTES, 'UTF-8') . '"
-                             data-state="' . esc_attr($state) . '" >';
+                            data-date="' . htmlspecialchars($date, ENT_QUOTES, 'UTF-8') . '"
+                            data-tournament="' . htmlspecialchars($date_matches[0]['tournament_assoc'], ENT_QUOTES, 'UTF-8') . '"
+                            data-venue="' . htmlspecialchars(!empty($date_matches[0]['venue'][0]) ? $date_matches[0]['venue'][0] : '', ENT_QUOTES, 'UTF-8') . '"
+                            data-season="' . htmlspecialchars(!empty($date_matches[0]['season'][0]) ? $date_matches[0]['season'][0] : '', ENT_QUOTES, 'UTF-8') . '"
+                            data-rounds="' . htmlspecialchars($round_slug, ENT_QUOTES, 'UTF-8') . '"
+                            data-title="' . htmlspecialchars($date_matches[0]['title'], ENT_QUOTES, 'UTF-8') . '"
+                            data-state="' . htmlspecialchars($match['state'], ENT_QUOTES, 'UTF-8') . '">
+';
  
                          echo '<thead>
                                  <tr>
@@ -3383,26 +3396,32 @@ add_shortcode('leader_board', 'home_leader_board');
                                      <th>Score</th>
                                      <th>Team 2</th>
                                      <th>Venue</th>
+                                     <th>Season</th>
+                                     <th>State</th>
                                  </tr>
                              </thead>';
                          echo '<tbody>';
  
-                         echo '<tr>';
-                         echo '<td>1</td>';
-                         echo '<td>' . (!empty($team_names[$team_ids[0]]) ? esc_html($team_names[$team_ids[0]]) : 'Team 1') . '</td>';
-                         echo '<td>' . esc_html($teams_scores[$team_ids[0]] ?? '0') . ' - ' . esc_html($teams_scores[$team_ids[1]] ?? '0') . '</td>';
-                         echo '<td>' . (!empty($team_names[$team_ids[1]]) ? esc_html($team_names[$team_ids[1]]) : 'Team 2') . '</td>';
-                         echo '<td>' . (!empty($match['venue']) ? esc_html(implode(', ', $match['venue'])) : 'Not specified') . '</td>';
-                         echo '</tr>';
-                         echo '<tr>';
-                         echo '<td colspan="5" class="tr_2_styling">' . esc_html($match['event_type'][0]) . ' | <a href="' . esc_url(site_url('/gallery')) . '">Gallery</a></td>';
-                         echo '</tr>';
+                        echo '<tr>';
+                        echo '<td>1';
+                        echo '<input type="hidden" value="' . esc_attr($state) . '" />';
+                        echo '<input type="hidden" value="' . htmlspecialchars($round_slug, ENT_QUOTES, 'UTF-8') . '" />';
+                        echo '<input type="hidden" value="' . htmlspecialchars(!empty($date_matches[0]['season'][0]) ? $date_matches[0]['season'][0] : '', ENT_QUOTES, 'UTF-8') . '" />';
+                        echo '<input type="hidden" value="' . htmlspecialchars(!empty($date_matches[0]['venue'][0]) ? $date_matches[0]['venue'][0] : '', ENT_QUOTES, 'UTF-8') . '" />';
+                        echo '<input type="hidden" value="' . htmlspecialchars($date_matches[0]['tournament_assoc'], ENT_QUOTES, 'UTF-8') . '" />';
+                        echo '</td>';
+                        echo '<td>' . (!empty($team_names[$team_ids[0]]) ? esc_html($team_names[$team_ids[0]]) : 'Team 1') . '</td>';
+                        echo '<td>' . esc_html($teams_scores[$team_ids[0]] ?? '0') . ' - ' . esc_html($teams_scores[$team_ids[1]] ?? '0') . '</td>';
+                        echo '<td>' . (!empty($team_names[$team_ids[1]]) ? esc_html($team_names[$team_ids[1]]) : 'Team 2') . '</td>';
+                        echo '<td>' . (!empty($match['venue']) ? esc_html(implode(', ', $match['venue'])) : 'Not specified') . '</td>';
+                        echo '<td>'. esc_html($match['season'][0]).'</td>';
+                        echo '<td>'. esc_html($match['state']).'</td>';
+                        echo '</tr>'; 
+                        echo '<tr>';
+                        echo '<td colspan="5" class="tr_2_styling">' . esc_html($match['event_type'][0]) . ' | <a href="' . esc_url(site_url('/gallery')) . '">Gallery</a></td>';
+                        echo '</tr>';
  
-                         echo '<input type="hidden" value="' . esc_attr($state) . '" />';
-                         echo '<input type="hidden" value="' . htmlspecialchars($round_slug, ENT_QUOTES, 'UTF-8') . '" />';
-                         echo '<input type="hidden" value="' . htmlspecialchars(!empty($date_matches[0]['season'][0]) ? $date_matches[0]['season'][0] : '', ENT_QUOTES, 'UTF-8') . '" />';
-                         echo '<input type="hidden" value="' . htmlspecialchars(!empty($date_matches[0]['venue'][0]) ? $date_matches[0]['venue'][0] : '', ENT_QUOTES, 'UTF-8') . '" />';
-                         echo '<input type="hidden" value="' . htmlspecialchars($date_matches[0]['tournament_assoc'], ENT_QUOTES, 'UTF-8') . '" />';
+                         
  
                          echo '</tbody>';
                          echo '</table>';
@@ -4038,17 +4057,18 @@ add_shortcode('leader_board', 'home_leader_board');
              foreach ($matches_by_round as $round_name => $matches) {
                  $round_slug = sanitize_title($round_name);
  
-                 $all_same_venue = true;
-                 $first_venue = !empty($matches[0]['venue']) ? implode(', ', $matches[0]['venue']) : '';
+                 $$round_venues = [];
                  foreach ($matches as $match) {
-                     $current_venue = !empty($match['venue']) ? implode(', ', $match['venue']) : '';
-                     if ($current_venue !== $first_venue) {
-                         $all_same_venue = false;
-                         break;
+                     if (!empty($match['venue'])) {
+                         foreach ($match['venue'] as $venue) {
+                             if (!in_array($venue, $round_venues)) {
+                                 $round_venues[] = $venue;
+                             }
+                         }
                      }
                  }
  
-                 $venue_display = $all_same_venue ? $first_venue : 'Multiple Venues';
+                 $venue_display = !empty($round_venues) ? implode(', ', $round_venues) : 'Venue not specified';
  
                  echo '<div class="rounds_wise_categories" data-round_cate="' . esc_attr($round_slug) . '">';
                  echo '<div class="rounds_wise_categories_inner">';
@@ -5637,7 +5657,7 @@ add_shortcode('leader_board', 'home_leader_board');
              $formatted_event_date = $event_date ? DateTime::createFromFormat('Ymd', $event_date)->format('F j, Y') : '';
  
              echo "<li>";
-             echo '<a href="' . esc_url(get_permalink()) . '" class="event-link">';
+             echo '<a href="' . site_url() . '/tournaments-post-event-states/" class="event-link">';
  
              // Venue details
              $venue = get_the_terms(get_the_ID(), 'sp_venue');
@@ -7429,6 +7449,8 @@ add_shortcode('leader_board', 'home_leader_board');
                      'venue' => wp_get_post_terms(get_the_ID(), 'sp_venue', array('fields' => 'names')),
                      'results' => maybe_unserialize(get_post_meta(get_the_ID(), 'sp_results', true)),
                      'players' => maybe_unserialize(get_post_meta(get_the_ID(), 'sp_players', true)),
+                     'player1' => maybe_unserialize(get_post_meta(get_the_ID(), 'e_select_player1', true)),
+                     'player2' => maybe_unserialize(get_post_meta(get_the_ID(), 'e_select_player2', true)),
                      'tournament_assoc' => $tournament_associate_name,
                      'rounds' => maybe_unserialize(get_post_meta(get_the_ID(), '_sp_labels', true)),
                      'event_type' => wp_get_post_terms(get_the_ID(), 'event-type', array('fields' => 'names')),
@@ -7476,12 +7498,14 @@ add_shortcode('leader_board', 'home_leader_board');
                      echo '<td colspan="5" class="hover_out">';
                      echo '<table width="100%" cellspacing="0" cellpading="0">';
                      echo '<tr>';
-                     echo '<td>' . $match_counter++ . '</td>';  // Dynamic match number
-                     echo '<td>' . (!empty($team_names[$team_ids[0]]) ? esc_html($team_names[$team_ids[0]]) : 'Team 1') . '</td>';
-                     echo '<td>' . esc_html($teams_scores[$team_ids[0]] ?? '0') . ' - ' . esc_html($teams_scores[$team_ids[1]] ?? '0') . '</td>';
-                     echo '<td>' . (!empty($team_names[$team_ids[1]]) ? esc_html($team_names[$team_ids[1]]) : 'Team 2') . '</td>';
-                     echo '<td>' . (!empty($match['venue']) ? esc_html(implode(', ', $match['venue'])) : 'Not specified') . '</td>';
-                     echo '</tr>';
+                    echo '<td>1</td>';
+                    // echo '<td>' . (!empty($team_names[$team_ids[0]]) ? esc_html($team_names[$team_ids[0]]) : '$match['player1']') . '</td>';
+                    echo '<td>' . $match['player1'] . '</td>';
+                    echo '<td>' . esc_html($teams_scores[$team_ids[0]] ?? '0') . ' - ' . esc_html($teams_scores[$team_ids[1]] ?? '0') . '</td>';
+                    // echo '<td>' . (!empty($team_names[$team_ids[1]]) ? esc_html($team_names[$team_ids[1]]) : 'Team 2') . '</td>';
+                    echo '<td>' . $match['player2'] . '</td>';
+                    echo '<td>' . (!empty($match['venue']) ? esc_html(implode(', ', $match['venue'])) : 'Not specified') . '</td>';
+                    echo '</tr>';
                      echo '<tr><td colspan="5"> ' . $match['event_type'][0] . ' | <a href="' . site_url() . '/gallery">Gallery</td></tr>';
                      echo '</table>';
                      echo '</td>';
