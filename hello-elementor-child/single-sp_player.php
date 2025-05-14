@@ -89,7 +89,7 @@ while (have_posts()) : the_post();
 							<h1 class="page_title_player_sigle">
 								<?php echo esc_html(wp_strip_all_tags($post_title)); ?>
 							</h1>
-							<table>
+							<table class="team-players-table">
 								<tr>
 									<td>Team Number</td>
 									<td><?php echo  esc_html($team_number);?></td>
@@ -130,6 +130,7 @@ while (have_posts()) : the_post();
 					<div class="player_head">
 						<h2>Player Ranking & Stats</h2>
 					</div>
+					<div class="team_table-area">
 					<table class="team-players-table">
 						<thead>
 							<tr>
@@ -174,8 +175,9 @@ while (have_posts()) : the_post();
 							</tr>
 						</tbody>
 					</table>
+					</div>
 				</article>
-				<div class="team_leaderboard">
+				<div class="team_leaderboard sidebarWidget">
 					<?php echo do_shortcode('[leader_board id="3248" league="NPL" season="2025" sponsor="ahm"]'); ?>
 				</div>
 			</div>
