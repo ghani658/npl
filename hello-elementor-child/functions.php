@@ -167,17 +167,17 @@ function display_matches_posts() {
                 $bg_image = $bg_image[0];
             }
             echo '<a href="' . esc_url(site_url('/tournaments-pre-event-states/')) . '" class="event-link">';
-            $event_date = get_field('event_date');
+            $event_date = get_field('event_start_date');
             $current_date = date('Y-m-d');
             
-            // Extract the start date from range (e.g., 'Dec 21' from 'Dec 21 - 24')
             if ($event_date) {
-                $date_parts = explode('-', $event_date);
-                $start_date = trim($date_parts[0]); // e.g., 'Dec 21'
-                
-                // Convert to full date with current year
-                $start_date = date('Y-m-d', strtotime($start_date . ' ' . date('Y')));
-                $event_type = (!$start_date || strtotime($start_date) < strtotime($current_date)) ? 'past' : 'upcoming';
+                // Convert dd/mm/yyyy to Y-m-d format for comparison
+                $formatted_date = DateTime::createFromFormat('d/m/Y', $event_date);
+                if ($formatted_date) {
+                    $event_type = ($formatted_date->format('Y-m-d') < $current_date) ? 'past' : 'upcoming';
+                } else {
+                    $event_type = 'past';
+                }
             } else {
                 $event_type = 'past';
             }
@@ -205,9 +205,15 @@ function display_matches_posts() {
             }
             echo '</div>';
             echo '<div class="event-date-wrapper">';
-            $event_date = get_field('event_date');
-            if ($event_date) {
-                echo '<span class="event-date">' . esc_html($event_date) . '</span>';
+            $event_date_2 = get_field('event_start_date');
+            if ($event_date_2) {
+                $date = DateTime::createFromFormat('d/m/Y', $event_date_2);
+                if ($date) {
+                    $formatted_date = $date->format('F j, Y'); // Converts to "June 7, 2025" format
+                    echo '<span class="event-date">' . esc_html($formatted_date) . '</span>';
+                } else {
+                    echo '<span class="event-date">' . esc_html($event_date_2) . '</span>';
+                }
             }
             $format = get_post_meta(get_the_ID(), 'sp_format', true);
             if ($format) {
@@ -782,14 +788,10 @@ function render_news_posts($query, $shortcode_categories = array()) {
 
             echo '<div class="news-item' . ($count < 2 ? ' featured' : '') . '">';
             echo '<a href="' . get_permalink() . '" class="news-link">';
-            if (has_post_thumbnail()) {
-                // Check if it's mobile and first post, or desktop and first 6 posts
-                $is_mobile = isset($_SERVER['HTTP_USER_AGENT']) && preg_match('/(Mobile|Android|iPhone|iPad|Windows Phone)/i', $_SERVER['HTTP_USER_AGENT']);
-                if (($is_mobile && $count < 1) || (!$is_mobile && $count < 6)) {
-                    echo '<div class="news-image">';
-                    echo get_the_post_thumbnail(null, 'full');
-                    echo '</div>';
-                }
+            if ($count < 6 && has_post_thumbnail()) {
+                echo '<div class="news-image">';
+                echo get_the_post_thumbnail(null, 'full');
+                echo '</div>';
             }
             echo '<div class="news-content">';
             echo '<div class="news-info">';

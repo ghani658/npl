@@ -1925,14 +1925,18 @@ body .single-event h2 {
   margin-bottom: 20px;
   color: #fff !important;
 }
-.matches-container .match tr td:first-child, .matches-container .match tr th:first-child,
-.matches-container .match tr td:nth-child(3), .matches-container .match tr th:nth-child(3){
-  width: 10%
+.matches-container .match tr td:first-child, .match-row .team-players-table tr th:first-child,
+.matches-container .match tr th:first-child, .match-row .team-players-table tr td:first-child, 
+.matches-container .match tr td:nth-child(3), .match-row .team-players-table tr th:nth-child(3),
+.matches-container .match tr th:nth-child(3), .match-row .team-players-table tr td:nth-child(3) {
+  width: 10%;
 }
-.matches-container .match tr td:last-child, .matches-container .match tr th:last-child{
+.matches-container .match tr td:last-child, .match-row .team-players-table tr td:last-child,
+.matches-container .match tr th:last-child, .match-row .team-players-table tr td:last-child {
   width: 40%;
 }
-.matches-container .match tr td, .matches-container .match tr th{
+.matches-container .match tr td, .match-row .team-players-table tr td, .match-row .team-players-table tr th,
+.matches-container .match tr th {
   width: 20%;
 }
 
@@ -2561,6 +2565,27 @@ width: 100%;
 .player_details_single1_l, .player_details_single1_r {
   max-width: 100%;
 }
+.player_info_venue .form-group_main .form-group {
+  width: 100%;
+  margin: 0px 0px 10px;
+}
+.event_overview .event_image_sec {
+  max-width: 100%;
+  margin-bottom: 1rem;
+}
+.event_overview .event_content_sec {
+  max-width: 100%;
+}
+.team-leaderboard-container1 {
+  overflow: auto;
+  height: 500px;
+}
+.team-leaderboard-container1 table {
+  min-width: 650px;
+}
+.replays_data_videos {
+  flex: 0 0 37%;
+}
 }
 @media (max-width: 650px) {
   .player_list {
@@ -2584,6 +2609,9 @@ width: 100%;
   .team_details_btns li a {
     padding: 3px 19px;
   }
+  .replays_data_videos {
+    flex: 0 0 80%;
+}
 }
 @media (max-width: 425px) {
   .team_details_btns {

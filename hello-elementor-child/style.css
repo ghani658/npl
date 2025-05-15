@@ -1030,6 +1030,10 @@ body .news-image img {
    font-size: 16px;
    letter-spacing: 0;
 }
+   /* Hide images for all but first post on mobile */
+   .news-item:not(:first-child) .news-image {
+      display: none;
+   }
 }
 
 .sidebarWidget .league-season-header {
