@@ -8,8 +8,40 @@ table.team-players-table td img {
 	vertical-align: inherit;
 	margin-right: 6px;
 }
-
-
+span.event-state {
+    color: #fff;
+    font-size: 18px;
+    line-height: 100%;
+}
+.event-link .single-event{
+	position: relative;
+}
+.event-link .single-event:before{
+	content: '';
+	background-color: #23b5748f;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	border-radius: 12px;
+}
+.event-link .single-event span, .event-link .single-event img, .event-link .single-event h2{
+	position: relative;
+	z-index: 9;
+}
+.event-link .single-event img{
+	border-radius: 12px;
+}
+.events-list{
+	margin: 0;
+	padding: 0;
+}
+.events-list .slick-list .slick-track{
+	margin: 0 !important;
+}
+.events_main_pre {
+	flex-direction: column !important;
+}
 
 
 .leaderboard-sidebar {
@@ -581,7 +613,7 @@ table tbody {
 	letter-spacing: 0.38px;
 }
 .team_heads_l .team_details h5 span {
-	background-color: #1d7a5c;
+	background-color: #2db97b;
 	font-size: 13px;
 	line-height: 24px;
 	border-radius: 3px;
@@ -788,12 +820,14 @@ table tbody {
 	padding: 10px 20px;
 	border-radius: 30px;
 	margin: 0;
+	color: #000;
+	border: 1px solid #BBBBBB !important
 }
 .league_teams_section .tabs .tab-btn.active,
 .league_teams_section .tabs .tab-btn:hover,
 .team-leaderboard-container1 .state-tabs .state-tab.active,
 .team-leaderboard-container1 .state-tabs .state-tab:hover {
-	background-color: #1d7a5c;
+	background-color: #2db97b;
 	color: #fff;
 }
 
@@ -900,10 +934,11 @@ table tbody {
 	letter-spacing: 0.45px;
 }
 .faqs_accordion_item .cont_faq_r h3 {
-	font-size: 18px;
-	line-height: 24px;
+	font-size: 18px !important;
+	line-height: 24px !important;
 	font-weight: 700;
 	letter-spacing: -0.54px;
+	text-transform: uppercase;
 }
 .faqs_accordion_item .cont_faq_r p {
 	font-size: 18px;
@@ -949,6 +984,12 @@ table tbody {
 	padding: 20px;
 }
 
+.league_overview_inner_r  h3{
+	font-size: 24px !important;
+	font-weight: 600;
+	line-height: 28px;
+	letter-spacing: -1px;
+}
 .league_overview_inner_r h4 {
 	font-size: 31px;
 	font-weight: 600;
@@ -983,7 +1024,7 @@ table tbody {
 	font-size: 16px;
 	line-height: 24px;
 	font-weight: 700;
-	background-color: #1d7a5c;
+	background-color: #2db97b;
 	color: #fff !important;
 	padding: 10px 30px;
 	border-radius: 30px;
@@ -1128,16 +1169,16 @@ table tbody {
 	margin-bottom: 20px;
 }
 .pre_league_location_items > h3 {
-	font-size: 32px;
-	font-weight: 600;
+	font-size: 32px !important;
+	font-weight: 600 !important;
 	line-height: 36px;
 	color: #000;
 	letter-spacing: -0.96px;
 }
 .pre_league_location_items_sec1 h3,
 .pre_league_location_items_sec2 h3 {
-	font-weight: 500;
-	font-size: 20px;
+	font-weight: 500 !important;
+	font-size: 20px !important;
 	line-height: 135%;
 	color: #000;
 	text-transform: uppercase;
@@ -1284,118 +1325,229 @@ table tbody {
 	letter-spacing: -0.72px;
 }
 
-.replays_data_videos_inner {
-	display: flex;
-	gap: 2%;
-	padding-bottom: 20px;
-	margin-top: 20px;
-	flex-wrap: wrap;
-}
+
 .replays_data_videos {
-	border-radius: 10px;
-	height: auto;
-	box-sizing: border-box;
-	position: relative;
-	max-width: 48%;
-	width: 100%;
-	margin: 15px 0px;
+  border-radius: 10px;
+  flex: 0 0 20%;
+  height: auto;
+  box-sizing: border-box;
+  position: relative;
 }
 .replays_data_videos .image_sec {
-	position: relative;
+  position: relative;
 }
 .replays_data_videos .image_sec:after {
-	content: "";
-	background-color: rgba(79, 79, 79, 0.6);
-	width: 100%;
-	height: 100%;
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	border-radius: 10px;
+  content: "";
+  background-color: rgba(79, 79, 79, 0.6);
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  border-radius: 10px;
 }
 .replays_data_videos .image_sec img {
-	height: 445px;
-	object-fit: cover;
-	object-position: center;
-	display: block;
-	margin: auto;
-	width: 100%;
-	max-width: 100%;
-	border-radius: 10px;
+  height: 445px;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  margin: auto;
+  width: 100%;
+  max-width: 100%;
+  border-radius: 10px;
 }
 .replays_data_videos_inner {
-	gap: 2%;
+  display: flex;
+  /* width: 1500px; */
+  overflow-y: hidden;
+  overflow-x: auto; /* Changed to 'auto' for better scroll behavior */
+  gap: 2%;
+  padding-bottom: 20px;
+  margin-top: 20px;
 }
-
+.replays_data_videos_inner {
+  gap: 2%;
+}
+.replays_data_videos {
+  flex: 0 0 30%;
+}
 .replays_data_videos .content_sec {
-	position: relative;
-	bottom: 0;
-	padding: 15px;
-	display: flex;
-	justify-content: space-between;
-	gap: 15px;
+  position: absolute;
+  bottom: 0;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
 }
 .replays_data_videos .content_sec h3 {
-	/*   font-weight: 700;
-	font-size: 24px;
-	line-height: 30px;
-	color: #000 */
-	font-weight: 600;
-	font-size: 47px;
-	line-height: 49px;
-	color: #000;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 30px;
+  color: #fff;
 }
 .replays_data_videos .content_sec img {
-	max-width: 75px;
-	width: 100%;
-	object-fit: contain;
+  max-width: 75px;
+  width: 100%;
+  object-fit: contain;
 }
-.replays_data_videos .image_sec .play-button {
-	height: auto !important;
-	width: auto !important;
-	position: absolute;
-	top: 35%;
-	left: 0;
-	right: 0;
-	margin: auto;
-	z-index: 9;
-}
+
 .replays_data_videos_inner .modal {
-	display: none; 
-	position: fixed; 
-	z-index: 999; 
-	padding-top: 100px; 
-	left: 0;
-	top: 0;
-	width: 100%; 
-	height: 100%; 
-	overflow: auto; 
-	background-color: rgb(0, 0, 0); 
-	background-color: rgba(0, 0, 0, 0.4); 
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
 }
 
 .replays_data_videos_inner .modal-content {
-	background-color: #fefefe;
-	margin: auto;
-	padding: 5px;
-	width: 90%;
-	max-width: 500px;
+  background-color: #fefefe;
+  margin: auto;
+  padding: 5px;
+  width: 90%;
+  max-width: 500px;
 }
 
 .replays_data_videos_inner .close {
-	color: #aaaaaa;
-	float: right;
-	font-size: 28px;
-	font-weight: bold;
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
 }
 
 .replays_data_videos_inner .close:hover,
 .replays_data_videos_inner .close:focus {
-	color: #000;
-	text-decoration: none;
-	cursor: pointer;
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
 }
+
+
+
+
+
+.league_replay_main_inner {
+  display: flex;
+  overflow-y: hidden;
+  overflow-x: auto;
+  gap: 2%;
+  padding-bottom: 20px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.replays_data_videos_sec {
+	border-radius: 10px;
+	max-width: 48%;
+	width: 100%;
+	height: auto;
+	box-sizing: border-box;
+	position: relative;
+	margin-bottom: 30px;
+}
+.replays_data_videos_sec .image_secs {
+  position: relative;
+}
+.replays_data_videos_sec .image_secs:after {
+  content: "";
+  background-color: rgba(79, 79, 79, 0.6);
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  border-radius: 10px;
+}
+.replays_data_videos_sec .image_secs img {
+  height: 445px;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  margin: auto;
+  width: 100%;
+  max-width: 100%;
+  border-radius: 10px;
+}
+.replays_data_videos_sec .image_secs img.play-button {
+    height: auto !important;
+    position: absolute;
+    width: 100px !important;
+    top: 35%;
+    left: 0;
+    right: 0;
+    margin: auto !important;
+    z-index: 9;
+}
+.replays_data_videos_inner {
+  gap: 2%;
+}
+
+.replays_data_videos_sec .content_sec {
+  position: absolute;
+  bottom: 0;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+}
+.replays_data_videos_sec .content_secs h3 {
+  font-weight: 700;
+  font-size: 47px;
+  line-height: 49px;
+  color: #000;
+}
+.replays_data_videos_sec .content_secs img {
+  max-width: 75px;
+  width: 100%;
+  object-fit: contain;
+}
+
+
+.replays_data_videos_sec .modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+.replays_data_videos_sec .modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 5px;
+  width: 90%;
+  max-width: 500px;
+}
+
+.replays_data_videos_sec .close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.replays_data_videos_sec .close:hover,
+.replays_data_videos_sec .close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+
+
 
 .gallery_data_inner ul {
 	margin: 0;
@@ -2281,8 +2433,8 @@ ul.tab-navigation.round-tabs .tab-item.active {
 	letter-spacing: -2px;
 }
 .rounds_wise_categories_inner h3{
-	font-size: 18px;
-	line-height: 100%;
+	font-size: 18px !important;
+	line-height: 100% !important;
 	letter-spacing: -1px;
 	color: #666666 !important;
 }
@@ -2308,13 +2460,13 @@ ul.tab-navigation.round-tabs .tab-item.active {
 	font-size: 18px !important;
 	font-weight: 600;
 	line-height: 100%;
-	color: #999999 !important;
+	color: #000 !important;
 }
 .tr_2_styling a{
 	font-size: 18px;
 	font-weight: 600;
 	line-height: 100%;
-	color: #000 !important;
+	color: #2db97b !important;
 }
 .gallery_page_title h2{
 	font-size: 46px;
@@ -2436,6 +2588,65 @@ ul.tab-navigation.round-tabs .tab-item.active {
 .leaderboard-sponsor p{
 	margin-bottom:0;
 }
+
+.page-template-league-template #panels .overview > h3, .page-template-pre_league-template #panels .panel > h3, .page-template-post_league-template #panels .panel > h3, 
+.page-template-pre_tournament-template #panels .panel > h3, .page-template-live_tournament-template #panels .panel > h3, .page-template-post_tournament-template  #panels .about-the-tournament  > h3 {
+	font-size: 46px;
+	line-height: 50px;
+	color: #000;
+	font-weight: 700;
+	margin-bottom: 20px;
+}
+
+.page-template-league-template #panels .results > h3{
+	font-size: 20px;
+	line-height: 28px;
+	color: #000;
+	font-weight: 600;
+	border-bottom: 1px solid #000;
+	padding-bottom: 10px;
+	margin-bottom: 10px;
+}
+
+.page-template-league-template #panels .schedule-and-fixtures h3, 
+.page-template-league-template #panels .replays > h3, 
+.page-template-league-template #panels .teams > h3{
+	display: none;
+}
+
+.page-template-league-template #panels .faqs > h3{
+	font-size: 36px;
+	line-height: 135%;
+	color: #000;
+	font-weight: 700;
+}
+
+.page-template-post_tournament-template  #panels .tournament-winners > h3, .page-template-post_tournament-template  #panels .next-events > h3{
+	font-size: 46px;
+	line-height: 50px;
+	color: #000;
+	font-weight: 700;
+	border-bottom: 1px solid #000;
+	padding-bottom: 10px;
+	margin-bottom: 10px;
+}
+
+.page-template-post_tournament-template  #panels .final-bracket > h3, .page-template-post_tournament-template  #panels .results  > h3{
+	font-size: 20px;
+	line-height: 28px;
+	color: #000;
+	font-weight: 600;
+	border-bottom: 1px solid #000;
+	padding-bottom: 10px;
+	margin-bottom: 10px;
+}
+
+
+
+
+
+
+
 @media (min-width: 1024px) {
 	.sidebarWidget {
 		max-width: 384px;
@@ -2708,6 +2919,13 @@ ul.tab-navigation.round-tabs .tab-item.active {
   .pre_league_key_dates_items {
     flex: 0 0 75%;
   }
+	.replays_data_videos_sec{
+		max-width: 99%;
+	}
+	.replays_data_videos_sec .content_secs h3{
+		font-size: 24px;
+		line-height: 100%;
+	}
 }
 @media (max-width: 425px) {
 	.team_details_btns {
