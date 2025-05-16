@@ -3481,18 +3481,20 @@ function func_mid_league_replays()
             <div class="replays_data_videos">
                 <div class="image_sec">
                     <img src="<?php echo esc_url($featured_image); ?>" alt="<?php echo esc_attr(get_the_title()); ?>" />
+					<img src="<?php echo esc_url(get_stylesheet_directory_uri()); ?>/assets/images/PlayButton-1.svg" class="play-button" data-video-id="video-<?php echo esc_attr($post_id); ?>" />
                 </div>
                 <div class="content_sec">
                     <h3><?php echo esc_html(get_the_title()); ?></h3>
-                    <img src="<?php echo esc_url(get_stylesheet_directory_uri()); ?>/assets/images/PlayButton-1.svg" class="play-button" data-video-id="video-<?php echo esc_attr($post_id); ?>" />
+                    
                 </div>
+					<div id="video-<?php echo esc_attr($post_id); ?>" class="modal">
+						<div class="modal-content">
+							<span class="close">&times;</span>
+							<iframe width="480" height="300" src="https://www.youtube.com/embed/<?php echo $video_url; ?>" frameborder="0" allowfullscreen></iframe>
+						</div>
+				</div>
             </div>
-            <div id="video-<?php echo esc_attr($post_id); ?>" class="modal">
-                <div class="modal-content">
-                    <span class="close">&times;</span>
-                    <iframe width="480" height="300" src="https://www.youtube.com/embed/<?php echo $video_url; ?>" frameborder="0" allowfullscreen></iframe>
-                </div>
-            </div>
+            
     <?php
         }
 
@@ -6125,6 +6127,17 @@ function func_tournament_gallery()
     $event_args = new WP_Query(array('post_type' => 'sp_event', 'posts_per_page' => -1, 'order' => 'ASC'));
     ?>
 
+	<div class="tournament_page_bar">
+		<a href="<?php echo site_url(); ?>/tournaments-post-event-states/">Back to Tournament</a>
+		<span><i class="fa-solid fa-chevron-right"></i></span>
+	</div>
+	
+	<div class="gallery_page_title">
+		<h2>
+			Gallery
+		</h2>	
+	</div>
+			
     <form action="" class="player_info_venue">
         <div class="form-group_main">
             <div class="form-group">
@@ -7203,7 +7216,7 @@ function func_post_tournament_next_event()
     <form id="event-filter-form" class="player_info_venue">
         <div class="form-group_main">
             <div class="form-group">
-                <select id="event-filter" name="event_filter">
+                <select id="event-filters" name="event_filter">
                     <option value="upcoming">Upcoming</option>
                     <option value="past">Past</option>
                 </select>
@@ -7212,7 +7225,7 @@ function func_post_tournament_next_event()
 
     </form>
 
-    <div id="events-list" class="events-list pre_tour_upcoming_event"></div>
+    <div id="events-lists" class="events-list pre_tour_upcoming_event"></div>
 
     <script>
         jQuery(document).ready(function($) {
@@ -7225,19 +7238,19 @@ function func_post_tournament_next_event()
                         event_filter: filterType
                     },
                     success: function(response) {
-                        $('#events-list').html(response);
+                        $('#events-lists').html(response);
                     },
                     error: function() {
-                        $('#events-list').html('<p class="no-events">Failed to load events.</p>');
+                        $('#events-lists').html('<p class="no-events">Failed to load events.</p>');
                     }
                 });
             }
 
             // Initial load
-            loadEvents($('#event-filter').val());
+            loadEvents($('#event-filters').val());
 
             // Handle filter change
-            $('#event-filter').on('change', function() {
+            $('#event-filters').on('change', function() {
                 const filterType = $(this).val();
                 loadEvents(filterType);
             });
