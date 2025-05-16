@@ -588,15 +588,15 @@ table tbody {
 .team_heads .team_heads_l {
 	width: 60%;
 	display: flex;
-	flex-wrap: wrap;
-	gap: 5%;
+/* 	flex-wrap: wrap; */
+	gap: 3%;
 }
 .team_heads_l .ournment_logo {
-	max-width: 25%;
+	max-width: 22%;
 	width: 100%;
 }
 .team_heads_l .team_details {
-	max-width: 70%;
+	max-width: 75%;
 	width: 100%;
 }
 .team_heads_l .ournment_logo img {
@@ -1599,6 +1599,7 @@ table tbody {
 	font-weight: 600;
 	line-height: 28px;
 	margin-bottom: 20px;
+	letter-spacing: -1.23px;
 }
 
 .event_overview {
@@ -1612,6 +1613,7 @@ table tbody {
 	width: 100%;
 	position: relative;
 	border-radius: 10px;
+	min-height: 331px;
 }
 .event_overview .event_content_sec {
 	max-width: 43%;
@@ -1665,6 +1667,7 @@ table tbody {
 	font-weight: 700;
 	color: var(--color-black);
 	margin: 0;
+	letter-spacing: -1.25px;
 }
 .event_overview .event_content_sec .event-details h2{
 	font-size: 30px;
@@ -1673,6 +1676,7 @@ table tbody {
 	color: var(--color-black);
 	margin: 20px 0px;
 	position: relative;
+	letter-spacing: -0.90px;
 }
 .event_overview .event_content_sec .event-details h2:before{
 	content: '';
@@ -1707,12 +1711,13 @@ table tbody {
 
 
 .event_overview .event_content_sec .event-details h5{
-	font-size: 16px;
+	font-size: 18x;
 	line-height: 100%;
 	font-weight: 500;
 	color: #666;
 	margin: 0px 0px;
 	max-width: 80%;
+	letter-spacing: -0.54px;
 }
 .event_overview .event_content_sec .event-details2 h4{
 	font-size: 18px;
@@ -1722,6 +1727,7 @@ table tbody {
 	text-transform: uppercase;
 	margin-top: 40px;
 	margin-bottom: 20px;
+	letter-spacing: -0.72px;
 }
 .event_overview .event_content_sec .event-details2 h3{
 	font-size: 25px;
@@ -2115,7 +2121,7 @@ body .single-event h2 {
 	font-size: 47px;
 	font-weight: 700;
 	line-height: 49px;
-	letter-spacing: -2px;
+	letter-spacing: -2.82px;
 	color: #000;
 	margin-bottom: 0;
 }
@@ -2848,6 +2854,18 @@ ul.tab-navigation.round-tabs .tab-item.active {
   .pre_league_news_blog .post_left, .pre_league_news_blog .post_right {
     max-width: 100%;
   }
+  .event_overview .event_content_sec .event-details h3 {
+	font-size: 16.66px;
+	letter-spacing: -0.83px;
+  }
+  .event_overview .event_content_sec .event-details h2 {
+    font-size: 20px;
+    letter-spacing: -0.60px;
+}
+.event_overview .event_content_sec .event-details h5 {
+	font-size: 12px;
+	letter-spacing: -0.36px;
+}
 }
 @media (max-width: 650px) {
 	.player_list {
@@ -2857,7 +2875,7 @@ ul.tab-navigation.round-tabs .tab-item.active {
 		max-width: 100%;
 	}
 	.team_main_head {
-		padding-bottom: 25px;
+		padding-bottom: 50px;
 	}
 	.team_details_btns {
 		width: 95vw;
