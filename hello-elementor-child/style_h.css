@@ -2267,12 +2267,14 @@ ul.tab-navigation.round-tabs .tab-item.active {
 	line-height: 28px;
 	font-weight: 700;
 	color: #000;
+	letter-spacing: -0.75px;
 }
 .winner_tourn_sec_e h2 {
 	font-size: 30px;
 	line-height: 36px;
 	font-weight: 600;
 	color: #000;
+	letter-spacing: -0.90px;
 }
 .winner_tourn_sec_iner {
 	display: flex;
@@ -2865,6 +2867,52 @@ ul.tab-navigation.round-tabs .tab-item.active {
 .event_overview .event_content_sec .event-details h5 {
 	font-size: 12px;
 	letter-spacing: -0.36px;
+}
+.winner_tourn_sec_l .winner_tab_sec {
+	width: 68px;
+    height: 68px;
+}
+.winner_tourn_sec_e h3 {
+    font-size: 16px;
+    line-height: 16px;
+    letter-spacing: -0.80px;
+}
+.winner_tourn_sec_e h2 {
+    font-size: 20px;
+    line-height: normal;
+    letter-spacing: 0;
+}
+.upcoming_post_event_inner {
+	flex-direction: column;
+	gap: 25px;
+}
+.upcoming_post_event_left, .upcoming_post_event_right_r {
+	max-width: 100%;
+}
+.upcoming_post_event_left_r img {
+	width: 40px;
+    height: 40px !important;
+	object-fit: cover;
+}
+.upcoming_post_event_left_l h2 {
+	font-size: 20px;
+	line-height: normal;
+	letter-spacing: 0;
+	margin: 0;
+}
+.upcoming_post_event_right_r h3 {
+    font-size: 14px;
+    line-height: normal;
+    letter-spacing: 0;
+    margin-top: 0;
+}
+.upcoming_post_event_right_r h4 {
+    font-size: 20px;
+    letter-spacing: 0;
+}
+.upcoming_post_event_left {
+    border-right: 0;
+    padding-right: 0;
 }
 }
 @media (max-width: 650px) {
